@@ -1,15 +1,15 @@
 # site
 site:
-    host: https://<yourname>.github.io
-    title: pencil
-    keywords: ['blog']
-    description: description of site
-    author: your name
-    avatar: your avatar
+    host: https://zhouzh1.github.io
+    title: Daily Notes
+    keywords: []
+    description: Just Some Notes
+    author: zhouzh1
+    avatar: ''
     rssSize: 10
     pageSize: 10
     theme: default
-    copyright: Copyright©2017
+    copyright: ''
 # contact
 contact:
     email: yourname@gmail.com
