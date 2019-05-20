@@ -1,0 +1,16 @@
+# site
+site:
+    host: https://<yourname>.github.io
+    title: pencil
+    keywords: ['blog']
+    description: description of site
+    author: your name
+    avatar: your avatar
+    rssSize: 10
+    pageSize: 10
+    theme: default
+    copyright: Copyright©2017
+# contact
+contact:
+    email: yourname@gmail.com
+    github: https://www.github.com/yourname
