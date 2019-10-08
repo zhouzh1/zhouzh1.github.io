@@ -1,4 +1,89 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 08 Oct 2019 10:33:50 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Tue, 08 Oct 2019 10:33:50 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[js中的对象继承方式以及优劣对比分析]]></title><description><![CDATA[<h3 id="-">原型链继承</h3>
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keyword" content="">
+<meta name="description" content="Just Some Notes">
+<meta name="author" content="zhouzh1">
+<link rel="stylesheet" href="/theme_assets/css/normalize.css">
+<link rel="stylesheet" href="/theme_assets/css/font-awesome-4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="/theme_assets/css/site.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
+	<title>js中的对象继承方式以及优劣对比分析</title>
+</head>
+<body>
+	<div class="body-wrapper">
+		<!-- secondary start-->
+
+<div class="secondary">
+	<header class="header">
+		<h1 class="site-title"><a href="/" class="site-title-link">Daily Notes</a></h1>
+		<button type="button" class="toggle toggle-sm toggle-sidebar display-sidebar"><i class="fa fa-arrow-right"></i></button>
+		<h2 class="site-description" title="Just Some Notes">Just Some Notes</h2>
+		<button type="button" class="toggle toggle-sm toggle-nav" id="toggle-nav"><i class="fa fa-bars"></i></button>
+		<nav class="navbar" id="navbar">
+			<table class="nav-table">
+				<tbody>
+					<tr>
+						
+						<td><i class="fa fa-home "></i></td>
+						<td><a href="/" class="">首页</a></td>
+					</tr>
+					<tr>
+						
+						<td><i class="fa fa-archive "></i></td>
+						<td><a href="/archive" class="">归档</a></td>
+					</tr>
+									<tr>
+						<td><i class="fa fa-rss"></i></td>
+						<td><a href="/rss.xml">RSS</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</nav>
+	</header>
+	<section class="sidebar" id="sidebar">
+		<button type="button" class="toggle toggle-sm toggle-sidebar hide-sidebar"><i class="fa fa-arrow-left"></i></button>
+				<aside class="category">
+			<h1>文章分类</h1>
+			<ul class="category-list">
+							<li><a href="/category/Frontend">Frontend (1)</a></li>
+						</ul>
+		</aside>
+		
+				<aside class="archive">
+			<h1>文章归档</h1>
+			<ul class="archive-list">
+				
+							<li><a href="/archive/index.html#2019">2019年10月 (1)</a></li>
+						</ul>
+				</aside>
+		
+				<aside class="tag">
+			<h1>标签</h1>
+			<div class="tag-cloud"><a href="/tag/JavaScript" class="tag-link" style="font-size: 1em">JavaScript</a></div>  
+		</aside>
+			</section>
+</div>
+<!-- secondary end -->
+		<div class="primary">
+			<div class="main-content">
+				<article class="article">
+					<header class="article-header">
+						<h1 class="article-title">js中的对象继承方式以及优劣对比分析</h1>
+						<div class="article-meta">
+							<span class="meta publish-date">
+								<i class="fa fa-calendar"></i>2019-10-8
+							</span>
+							<span class="meta author">BY zhouzh1</span>
+						</div>
+					</header>
+					<section class="article-text article-main">
+						<h3 id="-">原型链继承</h3>
 <pre><code class="lang-js">// 父类构造函数
 function Parent() {
     this.name = &#39;John&#39;;
@@ -121,4 +206,24 @@ function inheritance(Child, Parent) {
 }
 </code></pre>
 <p>从名字就可以看出，这种方式集成了寄生和组合方式的优点，绕过了组合方式需要两次调用父类构造函数以及属性冗余的问题.</p>
-]]></description><link>https://zhouzh1.github.io/article/js-inheritance.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/js-inheritance.html.html</guid><pubDate>Tue, 08 Oct 2019 10:23:00 GMT</pubDate></item></channel></rss>
+
+					</section>
+					<section class="article-tags">
+													<a href="/tag/JavaScript">#JavaScript</a>
+											</section>
+					<section class="article-nav">
+					
+											
+					</section>
+				</article>
+			</div>
+			<footer class="footer">
+	<p class="copyright">Powered by <a href="https://github.com/zhouzh1/pencil" target="_blank">Pencil</a> & Hosted by <a href="https://github.com" target="_blank">Github</a></p>
+</footer>
+		</div>
+	</div>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="/theme_assets/js/vendor/zepto.js"></script>
+<script src="/theme_assets/js/site.js"></script>
+</body>
+</html>
