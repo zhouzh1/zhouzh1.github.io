@@ -51,7 +51,7 @@
 				<aside class="category">
 			<h1>文章分类</h1>
 			<ul class="category-list">
-							<li><a href="/category/文档">文档 (1)</a></li>
+							<li><a href="/category/Frontend">Frontend (1)</a></li>
 						</ul>
 		</aside>
 		
@@ -59,17 +59,21 @@
 			<h1>文章归档</h1>
 			<ul class="archive-list">
 				
-							<li><a href="/archive/index.html#2019">2019年05月 (1)</a></li>
+							<li><a href="/archive/index.html#2019">2019年10月 (1)</a></li>
 						</ul>
 				</aside>
 		
+				<aside class="tag">
+			<h1>标签</h1>
+			<div class="tag-cloud"><a href="/tag/JavaScript" class="tag-link" style="font-size: 1em">JavaScript</a></div>  
+		</aside>
 			</section>
 </div>
 <!-- secondary end -->
 		<!-- primary start -->
 		<div class="primary">
 					<div class="mark">
-				<span class="mark-type">分类:</span><span class="mark-content">文档</span>
+				<span class="mark-type">分类:</span><span class="mark-content">Frontend</span>
 			</div>
 					<div class="main-content">
 							<ul class="article-list">
@@ -77,19 +81,60 @@
 					<li class="article-item">
 						<header class="article-header">
 							<h1 class="article-title">
-								<a href="/article/hi.html">开篇</a>
+								<a href="/article/js-inheritance.html">js中的对象继承方式以及优劣对比分析</a>
 							</h1>
 							<div class="article-meta">
 								<span class="meta publish-date">
-									<i class="fa fa-calendar"></i>2019-5-20
+									<i class="fa fa-calendar"></i>2019-10-8
 								</span>
 								<span class="meta author">BY zhouzh1</span>
 							</div>
 						</header>
 						<section class="article-text article-abstract">
-							<p>第一篇文章从这里开始...</p>
+							<h3 id="-">原型链继承</h3><pre><code class="lang-js">// 父类构造函数
+function Parent() {
+    this.name = 'John';
+    this.habits = ['basketball', 'cook', 'boxing'];
+}
+// 父类原型
+Parent.prototype.sayHello = function sayHello() {
+    console.log('hello, world');
+}
+// 子类构造函数
+function Child() {
+    // @empty
+}
+// 将子类的原型指向父类的一个实例
+Child.prototype = new Parent();
+
+const child_1 = new Child();
+console.log(child_1.name); // John
+console.log(child_2.habits); // ['basketball', 'cook', 'boxing']
+const child_2 = new Child();
+console.log(child_1.habits === child_2.habits); // true
+child_1.habits.push('running');
+console.log(child_1.habits); // ['basketball', 'cook', 'boxing', 'running']
+</code></pre><p><strong>缺点</strong>：父类实例中的引用类型对象由所有的子类实例共享，只要其中一个子类实例对其进行了修改，便会影响其他子类实例，容易“牵一发动全身”，造成容易忽略的BUG.</p><h3 id="-">构造函数继承</h3><pre><code class="lang-js">function Parent(name) {
+    this.name = name;
+    this.habits = ['boxing'];
+    this.sayHello = function sayHello() {
+        console.log('hello, world!');
+    }
+}
+
+function Child() {
+    Parent.call(this, 'frank');
+}
+
+const child_1 = new Child();
+const child_2 = new Child();
+child_1.habits.push('cooking');
+console.log(child_1.habits); // ['boxing', 'cooking']
+console.log(child_2.habits); // ['boxing']
+console.log(child_1.sayHello === child_2.sayHello); // false
+</code></pre>
 						</section>
-						<a href="/article/hi.html" class="read-all" role="button">阅读全文</a>
+						<a href="/article/js-inheritance.html" class="read-all" role="button">阅读全文</a>
 					</li>
 								</ul>
 						</div>
