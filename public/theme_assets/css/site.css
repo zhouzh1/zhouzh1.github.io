@@ -45,6 +45,7 @@ code {
   border-radius: 0.2em;
   overflow-x: scroll;
   word-wrap: normal;
+  font-family: Consolas, 'Courier New', Courier, monospace;
 }
 code::before,
 code::after {
@@ -66,13 +67,13 @@ pre code::after {
 html,
 body {
   font: 1em/1.75em "roboto", sans-serif;
+  background-color: #e0e7e8;
   -webkit-overflow-scrolling: touch;
   height: 100%;
   min-height: 100%;
   margin: 0px;
   padding: 0px;
   position: relative;
-  background-color: #eee;
 }
 .no-scroll {
   height: auto;
@@ -93,7 +94,7 @@ body {
 .secondary {
   width: 100%;
   color: rgba(255, 255, 255, 0.3);
-  background-color: rgba(51, 51, 51, 0.8);
+  background-color: #333;
 }
 .header {
   width: 100%;
@@ -107,7 +108,7 @@ body {
 }
 .site-title {
   width: 100%;
-  font-size: 3em;
+  font-size: 2.5em;
   font-family: "Playball";
   height: 2em;
   line-height: 2em;
@@ -222,6 +223,7 @@ body {
   z-index: 999;
   height: 100%;
   min-height: 100%;
+  background-color: #333;
 }
 .sidebar .hide-sidebar {
   -ms-flex-item-align: end;
@@ -273,7 +275,7 @@ body {
 .mark {
   padding: 1em;
   line-height: 2em;
-  background-color: #efefff;
+  border-bottom: 1px dashed #333;
 }
 .mark-type {
   color: #ccc;
@@ -351,6 +353,13 @@ body {
   text-align: center;
   color: #333;
 }
+.footer a {
+  color: #666;
+}
+.footer a:active,
+.footer a:visited {
+  color: #666;
+}
 /*----------  article page style  ----------*/
 .article-title {
   font-size: 1.5em;
@@ -391,7 +400,6 @@ body {
 .article-text h5,
 .article-text h6 {
   font-size: 1.5em;
-  padding: 0.67em 0;
 }
 .article-text a {
   color: #0366d6;
@@ -435,7 +443,7 @@ body {
   padding: 1em 0;
 }
 .article-tags a {
-  color: #0000ff;
+  color: #666;
   text-decoration: underline;
   padding-right: 0.5em;
 }
@@ -507,7 +515,8 @@ body {
 /*----------  for desktop  ----------*/
 @media screen and (min-width: 768px) {
   .body-wrapper {
-    width: 85%;
+    min-width: 768px;
+    max-width: 1024px;
     margin: 0 auto;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -515,7 +524,7 @@ body {
             flex-flow: row wrap;
   }
   .primary {
-    width: 75%;
+    width: 72%;
   }
   .main-content {
     padding: 2.5em;
@@ -528,7 +537,7 @@ body {
     line-height: 2.5em;
   }
   .secondary {
-    width: 25%;
+    width: 28%;
   }
   .toggle-sm {
     display: none;

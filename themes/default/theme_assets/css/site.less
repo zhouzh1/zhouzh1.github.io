@@ -37,6 +37,7 @@ code {
 	border-radius: 0.2em;
 	overflow-x: scroll;
 	word-wrap: normal;
+	font-family: Consolas, 'Courier New', Courier, monospace;
 }
 code::before, code::after {
 	content: "\00a0";
@@ -88,7 +89,7 @@ html, body {
 }
 .site-title {
 	width: 100%;
-	font-size: 3em;
+	font-size: 2.5em;
 	font-family: "Playball";
 	height: 2em;
 	line-height: 2em;
@@ -229,7 +230,7 @@ html, body {
 .mark {
 	padding: 1em;
 	line-height: 2em;
-	background-color: #efefff;
+	border-bottom: 1px dashed #333;
 }
 .mark-type {
 	color: #ccc;
@@ -296,11 +297,18 @@ html, body {
 .footer {
 	width: 100%;
 	height: 3em;
-	font-family: "Playball";
 	line-height: 3em;
 	font-size: 0.85em;
 	text-align: center;
 	color: #333;
+
+	a {
+		color: #666;
+		&:active,
+		&:visited {
+			color: #666;
+		}
+	}
 }
 
 /*----------  article page style  ----------*/
@@ -336,7 +344,6 @@ html, body {
 	margin-bottom: 2em;
 	h1, h2, h3, h4, h5, h6 {
 		font-size: 1.5em;
-		padding: 0.67em 0;
 	}
 	a {
 		color: @linkColor;
@@ -376,7 +383,7 @@ html, body {
 .article-tags {
 	padding: 1em 0;
 	a {
-		color: #0000ff;
+		color: #666;
 		text-decoration: underline;
 		padding-right: 0.5em;
 	}
@@ -453,12 +460,13 @@ html, body {
 /*----------  for desktop  ----------*/
 @media screen and (min-width: 768px) {
 	.body-wrapper {
-		width: 85%;
+		min-width: 768px;
+		max-width: 1024px;
 		margin: 0 auto;
 		flex-flow: row wrap;
 	}
 	.primary {
-		width: 75%;
+		width: 72%;
 	}
 	.main-content {
 		padding: 2.5em;
@@ -471,7 +479,7 @@ html, body {
 		line-height: 2.5em;
 	}
 	.secondary {
-		width: 25%;
+		width: 28%;
 	}
 	.toggle-sm {
 		display: none;
