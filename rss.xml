@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 18 Oct 2019 02:59:21 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Fri, 18 Oct 2019 02:59:21 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[js中的对象继承方式以及优劣对比分析]]></title><description><![CDATA[<h3 id="-">原型链继承</h3>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 23 Oct 2019 10:36:56 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Wed, 23 Oct 2019 10:36:56 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[script标签的async和defer属性]]></title><description><![CDATA[<p>首先，async和defer属性的作用都是指示浏览器加载外联脚本的具体方式，所以两个属性都必须用在外联脚本的script的标签上，否则无效.</p>
+<pre><code class="lang-js">&lt;script src=&quot;./a.js&quot; async&gt;&lt;/script&gt;
+&lt;script src=&quot;./b.js&quot; defer&gt;&lt;/script&gt;
+</code></pre>
+<h3 id="-async-defer">不使用async和defer</h3>
+<p>正常情况下，script标签会阻塞浏览器对HTML文档的解析，遇到script标签，浏览器会遵循下列步骤：<br>下载脚本 → 运行脚本 → 继续解析后面的文档内容.</p>
+<h3 id="async">async</h3>
+<p>async指示浏览器以异步的方式并行下载脚本，脚本下载过程中不会阻塞浏览器对HTML文档的解析，脚本下载完成后立即执行，因此脚本的执行顺序不确定，与script标签在HTML文档的顺序不一定保持一致.</p>
+<h3 id="defer">defer</h3>
+<p>defer指示浏览器先以并行方式下载脚本，也不会阻塞浏览器，与async不同的是，使用defer属性的脚本下载完成之后不会立即执行，而是在所有的defer脚本下载完成之后，并在DOMContentLoaded事件触发前按照script标签在HTML文档中的顺序执行.</p>
+<h3 id="-">总结</h3>
+<p>对script标签使用async和defer属性可以减少页面脚本总的下载时间，进而减少页面的白屏时间.</p>
+]]></description><link>https://zhouzh1.github.io/article/async-and-defer-attribute-of-script-tag.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/async-and-defer-attribute-of-script-tag.html.html</guid><pubDate>Wed, 23 Oct 2019 10:07:00 GMT</pubDate></item><item><title><![CDATA[js中的对象继承方式以及优劣对比分析]]></title><description><![CDATA[<h3 id="-">原型链继承</h3>
 <pre><code class="lang-js">// 父类构造函数
 function Parent() {
     this.name = &#39;John&#39;;
