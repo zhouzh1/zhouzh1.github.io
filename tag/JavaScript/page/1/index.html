@@ -51,6 +51,7 @@
 				<aside class="category">
 			<h1>文章分类</h1>
 			<ul class="category-list">
+							<li><a href="/category/Algorithm">Algorithm (1)</a></li>
 							<li><a href="/category/Frontend">Frontend (3)</a></li>
 						</ul>
 		</aside>
@@ -59,13 +60,13 @@
 			<h1>文章归档</h1>
 			<ul class="archive-list">
 				
-							<li><a href="/archive/index.html#2019">2019年10月 (3)</a></li>
+							<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
 						</ul>
 				</aside>
 		
 				<aside class="tag">
 			<h1>标签</h1>
-			<div class="tag-cloud"><a href="/tag/React" class="tag-link" style="font-size: 1em">React</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a></div>  
+			<div class="tag-cloud"><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 1em">React</a></div>  
 		</aside>
 			</section>
 </div>
@@ -77,6 +78,38 @@
 			</div>
 					<div class="main-content">
 							<ul class="article-list">
+									
+					<li class="article-item">
+						<header class="article-header">
+							<h1 class="article-title">
+								<a href="/article/shuffle-algorithm.html">洗牌算法</a>
+							</h1>
+							<div class="article-meta">
+								<span class="meta publish-date">
+									<i class="fa fa-calendar"></i>2019-10-30
+								</span>
+								<span class="meta author">BY zhouzh1</span>
+							</div>
+						</header>
+						<section class="article-text article-abstract">
+							<p>洗牌算法，用于随机打乱一个有限列表内的元素顺序，目前公认最好的洗牌算法就是Fisher-Yates算法，使用JavaScript实现Fisher-Yates算法对一个数组进行顺序打乱的代码如下.</p><pre><code class="lang-js">/**
+ * Fisher-Yates算法
+ * 将数组元素的顺序原地打乱
+ * 时间复杂度O(N)
+ * @param {Array&lt;any&gt;} 数组
+ */
+function shuffle(arr) {
+    for (let i = arr.length - 1; i &gt; 0; i--) {
+        const idx = Math.floor(Math.random() * (i + 1));
+        const tmp = arr[i];
+        arr[i] = arr[idx];
+        arr[idx] = tmp; 
+    }
+}
+</code></pre>
+						</section>
+						<a href="/article/shuffle-algorithm.html" class="read-all" role="button">阅读全文</a>
+					</li>
 									
 					<li class="article-item">
 						<header class="article-header">
