@@ -51,8 +51,8 @@
 				<aside class="category">
 			<h1>文章分类</h1>
 			<ul class="category-list">
+							<li><a href="/category/Frontend">Frontend (4)</a></li>
 							<li><a href="/category/Algorithm">Algorithm (1)</a></li>
-							<li><a href="/category/Frontend">Frontend (3)</a></li>
 						</ul>
 		</aside>
 		
@@ -61,12 +61,13 @@
 			<ul class="archive-list">
 				
 							<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
+							<li><a href="/archive/index.html#2019">2019年12月 (1)</a></li>
 						</ul>
 				</aside>
 		
 				<aside class="tag">
 			<h1>标签</h1>
-			<div class="tag-cloud"><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 1em">React</a></div>  
+			<div class="tag-cloud"><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 0.5em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 0.5em">React</a></div>  
 		</aside>
 			</section>
 </div>
@@ -75,6 +76,28 @@
 		<div class="primary">
 					<div class="main-content">
 							<ul class="article-list">
+									
+					<li class="article-item">
+						<header class="article-header">
+							<h1 class="article-title">
+								<a href="/article/the-in-operator-and-object-keys-function.html">js中的in操作符和Object.keys方法</a>
+							</h1>
+							<div class="article-meta">
+								<span class="meta publish-date">
+									<i class="fa fa-calendar"></i>2019-12-10
+								</span>
+								<span class="meta author">BY zhouzh1</span>
+							</div>
+						</header>
+						<section class="article-text article-abstract">
+							<h3 id="in-">in操作符</h3><p><code>in</code>和<code>typeof</code>一样，只是操作符，不是函数，它用来判断对象是否拥有某个属性，例如：</p><pre><code class="lang-js">console.log('alert' in window); // true
+console.log('xxoo' in window); // false
+</code></pre><p>在js中，对象的属性查找和继承是基于原型链来实现的，可以使用<code>hasOwnProperty</code>方法判断一个属性是属于对象本身，还是属于它的上层原型：</p><pre><code class="lang-js">console.log(window.hasOwnProperty('alert')); // true
+console.log(([]).hasOwnProperty('slice')); // false
+</code></pre>
+						</section>
+						<a href="/article/the-in-operator-and-object-keys-function.html" class="read-all" role="button">阅读全文</a>
+					</li>
 									
 					<li class="article-item">
 						<header class="article-header">
