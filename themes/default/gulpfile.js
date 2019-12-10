@@ -25,7 +25,7 @@ gulp.task('serve', () => {
 		server: www
 	});
 	// watch site.less
-	gulp.watch(`${cssdir}/site.less`, ['less']);
+	gulp.watch(`${cssdir}/site.less`, gulp.series('less'));
 	// watch site.js
 	gulp.watch(`${jsdir}/site.js`, () => {
 		gulp.src(`${jsdir}/site.js`)
@@ -35,4 +35,5 @@ gulp.task('serve', () => {
 });
 
 // default task
-gulp.task('default', ['less', 'serve']);
+// gulp.task('default', ['less', 'serve']);
+gulp.task('default', gulp.parallel('less', 'serve'));

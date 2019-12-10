@@ -205,13 +205,6 @@ body {
 }
 .sidebar {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column wrap;
-          flex-flow: column wrap;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 1em;
@@ -249,6 +242,15 @@ body {
 }
 .sidebar aside a:hover {
   color: rgba(255, 255, 255, 0.3);
+}
+.sidebar .tag-cloud {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 .tag-link::after {
   content: "\00a0\00a0";
