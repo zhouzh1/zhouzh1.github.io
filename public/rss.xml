@@ -1,4 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 30 Oct 2019 10:32:15 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Wed, 30 Oct 2019 10:32:15 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[洗牌算法]]></title><description><![CDATA[<p>洗牌算法，用于随机打乱一个有限列表内的元素顺序，目前公认最好的洗牌算法就是Fisher-Yates算法，使用JavaScript实现Fisher-Yates算法对一个数组进行顺序打乱的代码如下.</p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 10 Dec 2019 10:00:30 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Tue, 10 Dec 2019 10:00:30 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[js中的in操作符和Object.keys方法]]></title><description><![CDATA[<h3 id="in-">in操作符</h3>
+<p><code>in</code>和<code>typeof</code>一样，只是操作符，不是函数，它用来判断对象是否拥有某个属性，例如：</p>
+<pre><code class="lang-js">console.log(&#39;alert&#39; in window); // true
+console.log(&#39;xxoo&#39; in window); // false
+</code></pre>
+<p>在js中，对象的属性查找和继承是基于原型链来实现的，可以使用<code>hasOwnProperty</code>方法判断一个属性是属于对象本身，还是属于它的上层原型：</p>
+<pre><code class="lang-js">console.log(window.hasOwnProperty(&#39;alert&#39;)); // true
+console.log(([]).hasOwnProperty(&#39;slice&#39;)); // false
+</code></pre>
+<p><code>in</code>操作符只负责判断在目标对象的原型链上能否找到目标属性，能找到则返回true，否则返回false：</p>
+<pre><code class="lang-js">console.log(&#39;slice&#39; in ([])); // true
+</code></pre>
+<p>同理，<code>for ... in</code>循环也会遍历到对象原型链上的属性：</p>
+<pre><code class="lang-js">function Foo() {
+    this.foo = &#39;foo&#39;;
+}
+Foo.prototype.bar = &#39;bar&#39;;
+Foo.prototype.__proto__.ox = &#39;ox&#39;;
+const f = new Foo();
+for (let key in f) {
+    console.log(key); // foo bar ox
+}
+</code></pre>
+<p>但是，像<code>__proto__</code>这样的私有属性是不会被遍历到的：</p>
+<pre><code class="lang-js">const foo = {};
+console.log(foo.hasOwnProperty(&#39;__proto__&#39;)); // false
+</code></pre>
+<p>当然，js是一门灵活的语言，当通过<code>JSON.parse</code>方法创建对象的时候，可以使得<code>__proto__</code>作为正常属性被遍历，而不是指向对象原型：</p>
+<pre><code class="lang-js">const obj = JSON.parse(&#39;{&quot;a&quot;:&quot;a&quot;,&quot;__proto__&quot;:{&quot;b&quot;:&quot;b&quot;}}&#39;);
+for (let key in obj) {
+    console.log(key); // a __proto__
+}
+</code></pre>
+<p>使用上面描述的方法可能可以在某些代码中发现原型污染漏洞.</p>
+<h3 id="object-keys-">Object.keys方法</h3>
+<p>Object.keys方法返回一个字符串数组，数组包含目标对象的所有属性名，<code>(o: object) =&gt; string[]</code>，但是只会包含对象本身的属性，上层原型对象上的属性不会包含在数组内：</p>
+<pre><code class="lang-js">function Foo() {
+    this.foo = &#39;foo&#39;;
+    this.oof = &#39;oof&#39;;
+}
+Foo.prototype.bar = &#39;bar&#39;;
+Foo.prototype.__proto__.ox = &#39;ox&#39;;
+const f = new Foo();
+console.log(Object.keys(f)); // [&#39;foo&#39;, &#39;oof&#39;]
+</code></pre>
+]]></description><link>https://zhouzh1.github.io/article/the-in-operator-and-object-keys-function.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/the-in-operator-and-object-keys-function.html.html</guid><pubDate>Tue, 10 Dec 2019 08:42:00 GMT</pubDate></item><item><title><![CDATA[洗牌算法]]></title><description><![CDATA[<p>洗牌算法，用于随机打乱一个有限列表内的元素顺序，目前公认最好的洗牌算法就是Fisher-Yates算法，使用JavaScript实现Fisher-Yates算法对一个数组进行顺序打乱的代码如下.</p>
 <pre><code class="lang-js">/**
  * Fisher-Yates算法
  * 将数组元素的顺序原地打乱

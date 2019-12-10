@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/theme_assets/css/font-awesome-4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="/theme_assets/css/site.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-	<title>React中setState方法的同步与异步</title>
+	<title>js中的in操作符和Object.keys方法</title>
 </head>
 <body>
 	<div class="body-wrapper">
@@ -76,74 +76,68 @@
 			<div class="main-content">
 				<article class="article">
 					<header class="article-header">
-						<h1 class="article-title">React中setState方法的同步与异步</h1>
+						<h1 class="article-title">js中的in操作符和Object.keys方法</h1>
 						<div class="article-meta">
 							<span class="meta publish-date">
-								<i class="fa fa-calendar"></i>2019-10-24
+								<i class="fa fa-calendar"></i>2019-12-10
 							</span>
 							<span class="meta author">BY zhouzh1</span>
 						</div>
 					</header>
 					<section class="article-text article-main">
-						<h3 id="this-setstate-">this.setState方法内部做了什么？</h3>
-<p>调用this.setState方法后，先进行状态合并，并会触发状态更新，重新调用组件的render方法，render方法执行结束后会产生新的虚拟dom，最后React内部会对组件的新旧虚拟dom进行diff操作，得到针对旧虚拟dom的patch，最后根据patch来更新dom结构，实现视图更新.</p>
-<h3 id="this-setstate-">this.setState的同步和异步，为什么这样处理？</h3>
-<p>React的setState方法本质上都是同步操作，所谓异步，指的是将一系列的setState操作先收集起来，最终在函数执行结束时进行状态合并后再进行批量执行.</p>
-<p>之所以这样做，是因为如前文所述，每次调用setState方法都会触发视图更新，先将多次setState的调用收集起来，最终根据每次setState调用的状态参数进行状态合并后会得到最终的组件状态，这样一来，虽然调用了多次this.setState，但最终只会调用一次组件的render方法，视图也只会更新一次.</p>
-<h3 id="-">同步和异步分别发生在什么时机？</h3>
-<p>如前文所述，在函数的执行过程中，如果React想对this.setState进行“异步”操作，必须要能知晓这个函数什么时候会执行结束，在React中，组件生命周期函数的执行完全由React控制，事件处理程序由于合成事件的机制也被React所控制，因此在这两类函数里的this.setState都是“异步”处理，对于setTimeout和setInterval以及Promise回调这一类不在React管控范围内的函数里面，所有的this.setState就只能是同步处理了.</p>
-<pre><code class="lang-js">import React from &#39;react&#39;;
-
-class Foo extends React.Component {
-
-    state = {
-        a: &#39;a&#39;,
-    }
-
-    bar() {
-        this.setState({
-            a: &#39;A&#39;
-        });
-        console.log(this.state.a); // &#39;a&#39;
-    }
-
-    componentDidMount() {
-        setTimeout(() =&gt; {
-            this.setState({
-                a: &#39;A&#39;
-            });
-            console.log(this.state.a); // &#39;A&#39;
-        }, 0);
-
-        Promise.resolve().then(() =&gt; {
-            this.setState({
-                a: &#39;A&#39;
-            });
-            console.log(this.state.a); // &#39;A&#39;
-        });
-
-        this.setState({
-            a: &#39;A&#39;
-        });
-        console.log(this.state.a); // &#39;a&#39;
-    }
-
-    render() {
-        return (
-            &lt;div onClick={this.bar}&gt;bar&lt;/div&gt;
-        )
-    }
+						<h3 id="in-">in操作符</h3>
+<p><code>in</code>和<code>typeof</code>一样，只是操作符，不是函数，它用来判断对象是否拥有某个属性，例如：</p>
+<pre><code class="lang-js">console.log(&#39;alert&#39; in window); // true
+console.log(&#39;xxoo&#39; in window); // false
+</code></pre>
+<p>在js中，对象的属性查找和继承是基于原型链来实现的，可以使用<code>hasOwnProperty</code>方法判断一个属性是属于对象本身，还是属于它的上层原型：</p>
+<pre><code class="lang-js">console.log(window.hasOwnProperty(&#39;alert&#39;)); // true
+console.log(([]).hasOwnProperty(&#39;slice&#39;)); // false
+</code></pre>
+<p><code>in</code>操作符只负责判断在目标对象的原型链上能否找到目标属性，能找到则返回true，否则返回false：</p>
+<pre><code class="lang-js">console.log(&#39;slice&#39; in ([])); // true
+</code></pre>
+<p>同理，<code>for ... in</code>循环也会遍历到对象原型链上的属性：</p>
+<pre><code class="lang-js">function Foo() {
+    this.foo = &#39;foo&#39;;
 }
+Foo.prototype.bar = &#39;bar&#39;;
+Foo.prototype.__proto__.ox = &#39;ox&#39;;
+const f = new Foo();
+for (let key in f) {
+    console.log(key); // foo bar ox
+}
+</code></pre>
+<p>但是，像<code>__proto__</code>这样的私有属性是不会被遍历到的：</p>
+<pre><code class="lang-js">const foo = {};
+console.log(foo.hasOwnProperty(&#39;__proto__&#39;)); // false
+</code></pre>
+<p>当然，js是一门灵活的语言，当通过<code>JSON.parse</code>方法创建对象的时候，可以使得<code>__proto__</code>作为正常属性被遍历，而不是指向对象原型：</p>
+<pre><code class="lang-js">const obj = JSON.parse(&#39;{&quot;a&quot;:&quot;a&quot;,&quot;__proto__&quot;:{&quot;b&quot;:&quot;b&quot;}}&#39;);
+for (let key in obj) {
+    console.log(key); // a __proto__
+}
+</code></pre>
+<p>使用上面描述的方法可能可以在某些代码中发现原型污染漏洞.</p>
+<h3 id="object-keys-">Object.keys方法</h3>
+<p>Object.keys方法返回一个字符串数组，数组包含目标对象的所有属性名，<code>(o: object) =&gt; string[]</code>，但是只会包含对象本身的属性，上层原型对象上的属性不会包含在数组内：</p>
+<pre><code class="lang-js">function Foo() {
+    this.foo = &#39;foo&#39;;
+    this.oof = &#39;oof&#39;;
+}
+Foo.prototype.bar = &#39;bar&#39;;
+Foo.prototype.__proto__.ox = &#39;ox&#39;;
+const f = new Foo();
+console.log(Object.keys(f)); // [&#39;foo&#39;, &#39;oof&#39;]
 </code></pre>
 
 					</section>
 					<section class="article-tags">
-													<a href="/tag/React">#React</a>
+													<a href="/tag/JavaScript">#JavaScript</a>
 											</section>
 					<section class="article-nav">
-											<a href="/article/shuffle-algorithm.html" title="上一篇:洗牌算法" class="prev-article"></a>
 					
-											<a href="/article/async-and-defer-attribute-of-script-tag.html" title="下一篇:script标签的async和defer属性" class="next-article"></a>
+											<a href="/article/shuffle-algorithm.html" title="下一篇:洗牌算法" class="next-article"></a>
 											
 					</section>
 				</article>
