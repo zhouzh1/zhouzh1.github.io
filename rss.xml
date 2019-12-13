@@ -1,4 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 10 Dec 2019 12:04:29 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Tue, 10 Dec 2019 12:04:29 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[前端优化路径图]]></title><description><![CDATA[<p>微博上看到的关于前端优化的图<br><img src="/site_assets/frontend-optimize.jpg" alt="前端优化图"></p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 13 Dec 2019 04:02:29 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Fri, 13 Dec 2019 04:02:29 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[HTTP缓存策略]]></title><description><![CDATA[<p>一般来说，对于html, css, js以及图片等静态资源文件，浏览器会进行缓存，这样下次访问这些资源的时候就可以直接从缓存获取，从而提升页面的加载速度，但是浏览器的缓存机制遵循一定的策略.</p>
+<h3 id="-">什么情况下会缓存？</h3>
+<p>如果希望资源被浏览器缓存到本地，需要满足以下条件：</p>
+<ol>
+<li><strong>http响应头Content-type必须标明当前资源是可被缓存的静态资源，例如text/html, application/javascript, text/css, image/png等等</strong></li>
+<li><strong>http响应头Cache-Control指明了该资源允许被缓存</strong></li>
+</ol>
+<h3 id="-http-">与缓存有关的HTTP请求头和响应头？</h3>
+<p><img src="/site_assets/http-cache-headers.png" alt="http缓存截图"></p>
+<ol>
+<li><strong>响应头</strong><ol>
+<li>Cache-Control: public max-age=3600, public代表资源可以被网络链路上的任何设备缓存，max-age指令代表缓存时长，例如max-age=3600表示浏览器应该缓存这份资源一个小时，Cache-Control请求头可以包含很多指令，详见<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">MDN解释</a></li>
+<li>Expires: Sat, 14 Dec 2019 02:07:08 GMT, 代表缓存资源的过期时间，Cache-Control的优先级比Expires高；</li>
+<li>Etag: W/&quot;5df19f2c-626bc&quot;, 代表当前资源文件内容的签名；</li>
+<li>Last-Modified: Thu, 12 Dec 2019 02:00:12 GMT, 代表当前资源文件最近一次的改动时间</li>
+</ol>
+</li>
+<li><strong>请求头</strong><ol>
+<li>If-Modified-Since: Thu, 12 Dec 2019 02:02:19 GMT, 代表当前资源文件最近一次的改动时间，询问服务器当前文件是否已经被更新；</li>
+<li>If-None-Match: W/&quot;13a175-16ef7d7b473&quot;, 代表资源文件内容的签名，询问服务器当前文件是否已经被更新；</li>
+</ol>
+</li>
+</ol>
+<h3 id="-">什么是强缓存？</h3>
+<p>所谓强缓存就是在浏览器的本地缓存里面找到了资源的副本并且副本未过期，不需要再向服务器发出请求，如图：<br><img src="/site_assets/strict-cache.png" alt="local cache"><br>此时浏览器自动给你一个200 OK(from disk cache)的响应</p>
+<h3 id="-">什么是协商缓存？</h3>
+<p>所谓协商缓存就是在浏览器的本地缓存里面未找找到了副本但是副本已过期，此时浏览器会向服务器发出请求，并且带上对应的If-Modified-Since和If-None-Match请求头，再次和服务器确认缓存是否真正已过期，服务器根据If-Modified-Since或If-None-Match请求头的内容判断文件是否发生了更新，如果是，则说明浏览器缓存确实过期，返回正常的200 OK，响应体为最新的文件内容，反之，服务器返回304 Not Modified，告诉浏览器可以继续使用本地缓存，响应体为空，免去了文件内容的下载时间，如图：<br><img src="/site_assets/condition-cache.png" alt="condition cache">;</p>
+<h3 id="-">静态资源总体的加载流程？</h3>
+<p>综合以上分析，浏览器在加载静态资源的时候，大概会经历以下流程：</p>
+<ol>
+<li>检查本地缓存是否有副本，如果没有，直接请求server，流程结束，如果有，检查缓存是否未过期；</li>
+<li>server通过Cache-Control的max-age指令指明资源的缓存时长，或者通过Expires的值指明资源的过期时刻，浏览器根据这些信息判断缓存是否还有效，如果有效，直接使用缓存文件，并返回200 OK(from disk cache)，如果已经过期，则进一步发出请求向server确定缓存是否真的已过期；</li>
+<li>server在返回资源的时候会带上Etag和Last-Modified这俩响应头，这样浏览器在本地缓存已过期并向server确认的时候，可以带上If-None-Match（对应Etag）和If-Modified-Since（对应Last-Modified）这俩请求头，server会根据这些信息判断资源是否真的已发生更新，如果是，server返回200 OK，http响应体为更新后的资源，如果否，server返回304 Not Modified，http响应体为空，指示浏览器可以继续使用本地的缓存资源.</li>
+</ol>
+]]></description><link>https://zhouzh1.github.io/article/cache-strategy-of-http-static-resource.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/cache-strategy-of-http-static-resource.html.html</guid><pubDate>Thu, 12 Dec 2019 11:38:00 GMT</pubDate></item><item><title><![CDATA[前端优化路径图]]></title><description><![CDATA[<p>微博上看到的关于前端优化的图<br><img src="/site_assets/frontend-optimize.jpg" alt="前端优化图"></p>
 ]]></description><link>https://zhouzh1.github.io/article/frontend-optimize-image.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/frontend-optimize-image.html.html</guid><pubDate>Tue, 10 Dec 2019 11:32:00 GMT</pubDate></item><item><title><![CDATA[js中的in操作符和Object.keys方法]]></title><description><![CDATA[<h3 id="in-">in操作符</h3>
 <p><code>in</code>和<code>typeof</code>一样，只是操作符，不是函数，它用来判断对象是否拥有某个属性，例如：</p>
 <pre><code class="lang-js">console.log(&#39;alert&#39; in window); // true
