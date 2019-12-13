@@ -51,7 +51,7 @@
 				<aside class="category">
 			<h1>文章分类</h1>
 			<ul class="category-list">
-							<li><a href="/category/Frontend">Frontend (5)</a></li>
+							<li><a href="/category/Frontend">Frontend (6)</a></li>
 							<li><a href="/category/Algorithm">Algorithm (1)</a></li>
 						</ul>
 		</aside>
@@ -61,13 +61,13 @@
 			<ul class="archive-list">
 				
 							<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
-							<li><a href="/archive/index.html#2019">2019年12月 (2)</a></li>
+							<li><a href="/archive/index.html#2019">2019年12月 (3)</a></li>
 						</ul>
 				</aside>
 		
 				<aside class="tag">
 			<h1>标签</h1>
-			<div class="tag-cloud"><a href="/tag/性能优化" class="tag-link" style="font-size: 1em">性能优化</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 1em">React</a></div>  
+			<div class="tag-cloud"><a href="/tag/HTTP" class="tag-link" style="font-size: 1em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 1em">性能优化</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 1em">React</a></div>  
 		</aside>
 			</section>
 </div>
@@ -76,6 +76,27 @@
 		<div class="primary">
 					<div class="main-content">
 							<ul class="article-list">
+									
+					<li class="article-item">
+						<header class="article-header">
+							<h1 class="article-title">
+								<a href="/article/cache-strategy-of-http-static-resource.html">HTTP缓存策略</a>
+							</h1>
+							<div class="article-meta">
+								<span class="meta publish-date">
+									<i class="fa fa-calendar"></i>2019-12-12
+								</span>
+								<span class="meta author">BY zhouzh1</span>
+							</div>
+						</header>
+						<section class="article-text article-abstract">
+							<p>一般来说，对于html, css, js以及图片等静态资源文件，浏览器会进行缓存，这样下次访问这些资源的时候就可以直接从缓存获取，从而提升页面的加载速度，但是浏览器的缓存机制遵循一定的策略.</p><h3 id="-">什么情况下会缓存？</h3><p>如果希望资源被浏览器缓存到本地，需要满足以下条件：</p><ol>
+<li><strong>http响应头Content-type必须标明当前资源是可被缓存的静态资源，例如text/html, application/javascript, text/css, image/png等等</strong></li>
+<li><strong>http响应头Cache-Control指明了该资源允许被缓存</strong></li>
+</ol><h3 id="-http-">与缓存有关的HTTP请求头和响应头？</h3>
+						</section>
+						<a href="/article/cache-strategy-of-http-static-resource.html" class="read-all" role="button">阅读全文</a>
+					</li>
 									
 					<li class="article-item">
 						<header class="article-header">

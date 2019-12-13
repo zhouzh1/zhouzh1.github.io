@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keyword" content="">
+<meta name="description" content="Just Some Notes">
+<meta name="author" content="zhouzh1">
+<link rel="stylesheet" href="/theme_assets/css/normalize.css">
+<link rel="stylesheet" href="/theme_assets/css/font-awesome-4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="/theme_assets/css/site.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
+	<title>HTTP缓存策略</title>
+</head>
+<body>
+	<div class="body-wrapper">
+		<!-- secondary start-->
+
+<div class="secondary">
+	<header class="header">
+		<h1 class="site-title"><a href="/" class="site-title-link">Daily Notes</a></h1>
+		<button type="button" class="toggle toggle-sm toggle-sidebar display-sidebar"><i class="fa fa-arrow-right"></i></button>
+		<h2 class="site-description" title="Just Some Notes">Just Some Notes</h2>
+		<button type="button" class="toggle toggle-sm toggle-nav" id="toggle-nav"><i class="fa fa-bars"></i></button>
+		<nav class="navbar" id="navbar">
+			<table class="nav-table">
+				<tbody>
+					<tr>
+						
+						<td><i class="fa fa-home "></i></td>
+						<td><a href="/" class="">首页</a></td>
+					</tr>
+					<tr>
+						
+						<td><i class="fa fa-archive "></i></td>
+						<td><a href="/archive" class="">归档</a></td>
+					</tr>
+									<tr>
+						<td><i class="fa fa-rss"></i></td>
+						<td><a href="/rss.xml">RSS</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</nav>
+	</header>
+	<section class="sidebar" id="sidebar">
+		<button type="button" class="toggle toggle-sm toggle-sidebar hide-sidebar"><i class="fa fa-arrow-left"></i></button>
+				<aside class="category">
+			<h1>文章分类</h1>
+			<ul class="category-list">
+							<li><a href="/category/Frontend">Frontend (6)</a></li>
+							<li><a href="/category/Algorithm">Algorithm (1)</a></li>
+						</ul>
+		</aside>
+		
+				<aside class="archive">
+			<h1>文章归档</h1>
+			<ul class="archive-list">
+				
+							<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
+							<li><a href="/archive/index.html#2019">2019年12月 (3)</a></li>
+						</ul>
+				</aside>
+		
+				<aside class="tag">
+			<h1>标签</h1>
+			<div class="tag-cloud"><a href="/tag/HTTP" class="tag-link" style="font-size: 1em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 1em">性能优化</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 1em">React</a></div>  
+		</aside>
+			</section>
+</div>
+<!-- secondary end -->
+		<div class="primary">
+			<div class="main-content">
+				<article class="article">
+					<header class="article-header">
+						<h1 class="article-title">HTTP缓存策略</h1>
+						<div class="article-meta">
+							<span class="meta publish-date">
+								<i class="fa fa-calendar"></i>2019-12-12
+							</span>
+							<span class="meta author">BY zhouzh1</span>
+						</div>
+					</header>
+					<section class="article-text article-main">
+						<p>一般来说，对于html, css, js以及图片等静态资源文件，浏览器会进行缓存，这样下次访问这些资源的时候就可以直接从缓存获取，从而提升页面的加载速度，但是浏览器的缓存机制遵循一定的策略.</p>
+<h3 id="-">什么情况下会缓存？</h3>
+<p>如果希望资源被浏览器缓存到本地，需要满足以下条件：</p>
+<ol>
+<li><strong>http响应头Content-type必须标明当前资源是可被缓存的静态资源，例如text/html, application/javascript, text/css, image/png等等</strong></li>
+<li><strong>http响应头Cache-Control指明了该资源允许被缓存</strong></li>
+</ol>
+<h3 id="-http-">与缓存有关的HTTP请求头和响应头？</h3>
+<p><img src="/site_assets/http-cache-headers.png" alt="http缓存截图"></p>
+<ol>
+<li><strong>响应头</strong><ol>
+<li>Cache-Control: public max-age=3600, public代表资源可以被网络链路上的任何设备缓存，max-age指令代表缓存时长，例如max-age=3600表示浏览器应该缓存这份资源一个小时，Cache-Control请求头可以包含很多指令，详见<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">MDN解释</a></li>
+<li>Expires: Sat, 14 Dec 2019 02:07:08 GMT, 代表缓存资源的过期时间，Cache-Control的优先级比Expires高；</li>
+<li>Etag: W/&quot;5df19f2c-626bc&quot;, 代表当前资源文件内容的签名；</li>
+<li>Last-Modified: Thu, 12 Dec 2019 02:00:12 GMT, 代表当前资源文件最近一次的改动时间</li>
+</ol>
+</li>
+<li><strong>请求头</strong><ol>
+<li>If-Modified-Since: Thu, 12 Dec 2019 02:02:19 GMT, 代表当前资源文件最近一次的改动时间，询问服务器当前文件是否已经被更新；</li>
+<li>If-None-Match: W/&quot;13a175-16ef7d7b473&quot;, 代表资源文件内容的签名，询问服务器当前文件是否已经被更新；</li>
+</ol>
+</li>
+</ol>
+<h3 id="-">什么是强缓存？</h3>
+<p>所谓强缓存就是在浏览器的本地缓存里面找到了资源的副本并且副本未过期，不需要再向服务器发出请求，如图：<br><img src="/site_assets/strict-cache.png" alt="local cache"><br>此时浏览器自动给你一个200 OK(from disk cache)的响应</p>
+<h3 id="-">什么是协商缓存？</h3>
+<p>所谓协商缓存就是在浏览器的本地缓存里面未找找到了副本但是副本已过期，此时浏览器会向服务器发出请求，并且带上对应的If-Modified-Since和If-None-Match请求头，再次和服务器确认缓存是否真正已过期，服务器根据If-Modified-Since或If-None-Match请求头的内容判断文件是否发生了更新，如果是，则说明浏览器缓存确实过期，返回正常的200 OK，响应体为最新的文件内容，反之，服务器返回304 Not Modified，告诉浏览器可以继续使用本地缓存，响应体为空，免去了文件内容的下载时间，如图：<br><img src="/site_assets/condition-cache.png" alt="condition cache">;</p>
+<h3 id="-">静态资源总体的加载流程？</h3>
+<p>综合以上分析，浏览器在加载静态资源的时候，大概会经历以下流程：</p>
+<ol>
+<li>检查本地缓存是否有副本，如果没有，直接请求server，流程结束，如果有，检查缓存是否未过期；</li>
+<li>server通过Cache-Control的max-age指令指明资源的缓存时长，或者通过Expires的值指明资源的过期时刻，浏览器根据这些信息判断缓存是否还有效，如果有效，直接使用缓存文件，并返回200 OK(from disk cache)，如果已经过期，则进一步发出请求向server确定缓存是否真的已过期；</li>
+<li>server在返回资源的时候会带上Etag和Last-Modified这俩响应头，这样浏览器在本地缓存已过期并向server确认的时候，可以带上If-None-Match（对应Etag）和If-Modified-Since（对应Last-Modified）这俩请求头，server会根据这些信息判断资源是否真的已发生更新，如果是，server返回200 OK，http响应体为更新后的资源，如果否，server返回304 Not Modified，http响应体为空，指示浏览器可以继续使用本地的缓存资源.</li>
+</ol>
+
+					</section>
+					<section class="article-tags">
+													<a href="/tag/HTTP">#HTTP</a>
+											</section>
+					<section class="article-nav">
+					
+											<a href="/article/frontend-optimize-image.html" title="下一篇:前端优化路径图" class="next-article"></a>
+											
+					</section>
+				</article>
+			</div>
+			<footer class="footer">
+	<p class="copyright">Powered by <a href="https://github.com/zhouzh1/pencil" target="_blank">Pencil</a> & Hosted by <a href="https://github.com" target="_blank">Github</a></p>
+</footer>
+		</div>
+	</div>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="/theme_assets/js/vendor/zepto.js"></script>
+<script src="/theme_assets/js/site.js"></script>
+</body>
+</html>
