@@ -489,7 +489,19 @@ function combineReducers(reducers) {
 ```
 
 ### applyMiddleware
-`applyMiddleware`函数用于给redux添加中间件，所谓redux中间件，本质上是一个函数，用于拦截redux的dispatch函数调用并且添加自定义操作，但是最终依然会调用redux store的dispatch方法更新state，例如`redux-thunk`这个常用的中间件，使得开发者可以dispatch一个函数
+`applyMiddleware`函数用于给redux添加中间件，所谓redux中间件，本质上是一个函数，用于重载store的dispatch函数调用并且添加自定义操作，但是最终依然会调用redux的dispatch方法更新state，例如`redux-thunk`这个常用的中间件，使得开发者可以dispatch一个函数类型的action，其内部原理是在重载后的dispatch函数内部判断了action的类型，如果是函数类型，则执行该函数并且将redux的dispatch和getState函数作为参数传入，开发者在函数内部根据函数执行结果调用redux的dispatch函数，如果是Object类型，则直接调用redux的dispatch函数.
+
+```js
+/**
+ * redux-thunk源代码，其实就是一个简单的函数
+ */
+```
+
+```js
+/**
+ * applyMiddlware
+ */
+```
 
 
 
