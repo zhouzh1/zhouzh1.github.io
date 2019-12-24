@@ -489,8 +489,128 @@ function combineReducers(reducers) {
 ```
 
 ### applyMiddleware
-`applyMiddleware`函数用于给redux添加中间件，所谓redux中间件，本质上是一个函数，用于拦截redux的dispatch函数调用并且添加自定义操作，但是最终依然会调用redux store的dispatch方法更新state，例如`redux-thunk`这个常用的中间件，使得开发者可以dispatch一个函数
+`applyMiddleware`函数用于给redux添加中间件，所谓redux中间件，本质上是一个函数，用于拦截redux的dispatch函数调用并且添加自定义操作，但是最终依然会调用redux的dispatch方法更新state，例如`redux-thunk`这个常用的中间件，使得开发者可以dispatch一个函数类型的action.
 
+```js
+/**
+ * redux-thunk中间件源代码，就是一个简单的函数
+ */
+function createThunkMiddleware(extraArgument) {
+    return ({ dispatch, getState }) => next => action => {
+        if (typeof action === 'function') {
+            return action(dispatch, getState, extraArgument);
+        }
+        // next就是redux的dispatch函数
+        return next(action);
+    };
+}
+
+const thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+export default thunk;
+```
+
+```js
+/**
+ * applyMiddleware函数
+ * @param {Function} middleware 需要注意的是，向applyMiddleware函数传递middleware参数的时候，最终调用redux dispatch函数的中间件
+ * 要放在参数列表的末尾
+ */
+function applyMiddleware() {
+    // 将所有中间件存入一个数组
+    for (var _len = arguments.length, middlewares = new Array(_len), _key = 0; _key < _len; _key++) {
+        middlewares[_key] = arguments[_key];
+    }
+
+    // 返回一个高阶函数，函数参数为redux的createStore函数
+    return function (createStore) {
+        // 返回一个函数，最终调用此函数创建redux store
+        return function () {
+            // 先创建redux store
+            var store = createStore.apply(void 0, arguments);
+
+            var _dispatch = function dispatch() {
+                throw new Error('Dispatching while constructing your middleware is not allowed. ' + 'Other middleware would not be applied to this dispatch.');
+            };
+
+            var middlewareAPI = {
+                getState: store.getState,
+                dispatch: function dispatch() {
+                    return _dispatch.apply(void 0, arguments);
+                }
+            };
+
+            // 每个中间件本质上都是高阶函数，先把redux的getState函数和一个暂时的dispatch函数传进中间件函数的闭包上下文
+            var chain = middlewares.map(function (middleware) {
+                return middleware(middlewareAPI);
+            });
+            /*
+             * 调用compose函数创建一个中间件的包装函数（前文有述），然后使用redux的dispatch函数作为参数调用这个包装函数，最后返回重载后的
+             * dispatch函数，然后替换store对象上原本的dispatch函数，如此一来，业务代码中每次调用`store.dispatch`的时候，redux内部都会
+             * 按照参数传递的顺序一次执行对应中间件的功能，最终再调用redux本身的dispatch函数更改应用state
+             */
+            _dispatch = compose.apply(void 0, chain)(store.dispatch);
+            return _objectSpread2({}, store, {
+                dispatch: _dispatch
+            });
+        };
+    };
+}
+```
+
+### bindActionCreator
+`bindActionCreator`是redux提供的一个包装函数，用于将返回一个`action`的函数和`dispatch`组合起来.
+
+```js
+/**
+ * bindActionCreator函数，将计算action的函数和dispatch进行组合
+ * @param {Function} actionCreator 返回值为action的函数
+ * @param {Function} dispatch dispatch函数
+ * @returns {Function} 开发者执行此函数就直接dispatch了对应的action，不需要每次手动引用redux的dispatch函数
+ */
+function bindActionCreator(actionCreator, dispatch) {
+    return function () {
+        return dispatch(actionCreator.apply(this, arguments));
+    };
+}
+```
+
+### bindActionCreators
+`bindActionCreators`基于`bindActionCreator`进行批量包装.
+
+```js
+/**
+ * @param {Function|Object} actionCreators 可以返回action的函数集合
+ * @param {Function} dispatch dispatch函数
+ * @returns {Function|Object}
+ */
+function bindActionCreators(actionCreators, dispatch) {
+    // 参数为单个函数，与bindActionCreator无异
+    if (typeof actionCreators === 'function') {
+        return bindActionCreator(actionCreators, dispatch);
+    }
+
+    // 参数校验
+    if (typeof actionCreators !== 'object' || actionCreators === null) {
+        throw new Error("bindActionCreators expected an object or a function, instead received " + (actionCreators === null ? 'null' : typeof actionCreators) + ". " + "Did you write \"import ActionCreators from\" instead of \"import * as ActionCreators from\"?");
+    }
+
+    var boundActionCreators = {};
+
+    // 逐个函数进行包装
+    for (var key in actionCreators) {
+        var actionCreator = actionCreators[key];
+
+        if (typeof actionCreator === 'function') {
+            boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+        }
+    }
+
+    // 返回最后的包装函数集合
+    return boundActionCreators;
+}
+```
 
 
 
