@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/theme_assets/css/font-awesome-4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="/theme_assets/css/site.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-	<title>Archive - Daily Notes</title>
+	<title>Index - Daily Notes</title>
 </head>
 <body>
 	<div class="body-wrapper">
@@ -35,8 +35,8 @@
 					</tr>
 					<tr>
 						
-						<td><i class="fa fa-archive visited"></i></td>
-						<td><a href="/archive" class="visited">归档</a></td>
+						<td><i class="fa fa-archive "></i></td>
+						<td><a href="/archive" class="">归档</a></td>
 					</tr>
 									<tr>
 						<td><i class="fa fa-rss"></i></td>
@@ -73,57 +73,65 @@
 			</section>
 </div>
 <!-- secondary end -->
+		<!-- primary start -->
 		<div class="primary">
-			<div class="main-content">
-				
-				<div class="archive-wrapper">
-								
-					<section class="archive-section">
-						<h2 class="archive-year" id="2019">2019</h2>
-						<ul class="archive-article-list">
-											
-													<li class="archive-article-item">
-								<a href="/article/shuffle-algorithm.html">洗牌算法</a>
-								<span class="publish-date">2019-10-30</span>
-							</li>
-													<li class="archive-article-item">
-								<a href="/article/sync-and-async-of-react-setState.html">React中setState方法的同步与异步</a>
-								<span class="publish-date">2019-10-24</span>
-							</li>
-													<li class="archive-article-item">
-								<a href="/article/async-and-defer-attribute-of-script-tag.html">script标签的async和defer属性</a>
-								<span class="publish-date">2019-10-23</span>
-							</li>
-													<li class="archive-article-item">
-								<a href="/article/js-inheritance.html">js中的对象继承方式以及优劣对比分析</a>
-								<span class="publish-date">2019-10-8</span>
-							</li>
-																	
-													<li class="archive-article-item">
+					<div class="mark">
+				<span class="mark-type">标签:</span><span class="mark-content">JavaScript Redux</span>
+			</div>
+					<div class="main-content">
+							<ul class="article-list">
+									
+					<li class="article-item">
+						<header class="article-header">
+							<h1 class="article-title">
 								<a href="/article/read-source-code-of-redux.html">redux源代码阅读</a>
-								<span class="publish-date">2019-12-20</span>
-							</li>
-													<li class="archive-article-item">
-								<a href="/article/cache-strategy-of-http-static-resource.html">HTTP缓存策略</a>
-								<span class="publish-date">2019-12-12</span>
-							</li>
-													<li class="archive-article-item">
-								<a href="/article/frontend-optimize-image.html">前端优化路径图</a>
-								<span class="publish-date">2019-12-10</span>
-							</li>
-													<li class="archive-article-item">
-								<a href="/article/the-in-operator-and-object-keys-function.html">js中的in操作符和Object.keys方法</a>
-								<span class="publish-date">2019-12-10</span>
-							</li>
-																	</ul>
-						<span class="circle"></span>
-					</section>
-								</div>
+							</h1>
+							<div class="article-meta">
+								<span class="meta publish-date">
+									<i class="fa fa-calendar"></i>2019-12-20
+								</span>
+								<span class="meta author">BY zhouzh1</span>
+							</div>
+						</header>
+						<section class="article-text article-abstract">
+							<p>Redux是一个常用的组件状态管理库，通过将应用的状态数据集中存储并且限制可以更改状态数据的路径，使得开发者可以更好的追踪以及预测应用状态的变化过程，Redux的源代码不到1000行，是一个学习源代码分析的不错对象.</p><p>在浏览器中通过<code>script</code>标签加载<a href="https://unpkg.com/redux@4.0.4/dist/redux.js"></a>后，脚本会在全局作用域下添加<code>Redux</code>变量<br><img src="/site_assets/E57038ED-4FB7-4eca-AE2D-56F675EFF327.png" alt="redux object screenshot"></p><p>对应的源代码如下</p><pre><code class="lang-js">/**
+ * 先探测脚本所处的运行环境和加载机制，然后将redux的方法和属性挂载到对应的作用域
+ * 1. Node.js环境下和AMD加载机制下挂载到模块的导出对象
+ * 2. script标签加载挂载到window对象
+ */
+(function (global, factory) {
+    // Node.js环境
+    typeof exports === 'object' &amp;&amp; typeof module !== 'undefined' ? factory(exports) :
+        // 浏览器环境（通过AMD方式加载）
+        typeof define === 'function' &amp;&amp; define.amd ? define(['exports'], factory) :
+            // 浏览器环境（通过script标签加载）
+            (global = global || self, factory(global.Redux = {}));
+}(this, function (exports) {
+
+    /* other code... */
+
+    exports.__DO_NOT_USE__ActionTypes = ActionTypes;
+    exports.applyMiddleware = applyMiddleware;
+    exports.bindActionCreators = bindActionCreators;
+    exports.combineReducers = combineReducers;
+    exports.compose = compose;
+    exports.createStore = createStore;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
+}));
+</code></pre><h3 id="do_not_useactiontypes"><strong>DO_NOT_USE</strong>ActionTypes</h3>
+						</section>
+						<a href="/article/read-source-code-of-redux.html" class="read-all" role="button">阅读全文</a>
+					</li>
+								</ul>
 						</div>
+			
+	
 			<footer class="footer">
 	<p class="copyright">Powered by <a href="https://github.com/zhouzh1/pencil" target="_blank">Pencil</a> & Hosted by <a href="https://github.com" target="_blank">Github</a></p>
 </footer>
 		</div>
+		<!-- primary end -->
 	</div>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="/theme_assets/js/vendor/zepto.js"></script>
