@@ -1,4 +1,92 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 24 Dec 2019 14:58:03 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Tue, 24 Dec 2019 14:58:03 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[redux源代码阅读]]></title><description><![CDATA[<p>Redux是一个常用的组件状态管理库，通过将应用的状态数据集中存储并且限制可以更改状态数据的路径，使得开发者可以更好的追踪以及预测应用状态的变化过程，Redux的源代码不到1000行，是一个学习源代码分析的不错对象.</p>
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keyword" content="">
+<meta name="description" content="Just Some Notes">
+<meta name="author" content="zhouzh1">
+<link rel="stylesheet" href="/theme_assets/css/normalize.css">
+<link rel="stylesheet" href="/theme_assets/css/font-awesome-4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="/theme_assets/css/site.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
+	<title>redux源代码阅读</title>
+</head>
+<body>
+	<div class="body-wrapper">
+		<!-- secondary start-->
+
+<div class="secondary">
+	<header class="header">
+		<h1 class="site-title"><a href="/" class="site-title-link">Daily Notes</a></h1>
+		<button type="button" class="toggle toggle-sm toggle-sidebar display-sidebar"><i class="fa fa-arrow-right"></i></button>
+		<h2 class="site-description" title="Just Some Notes">Just Some Notes</h2>
+		<button type="button" class="toggle toggle-sm toggle-nav" id="toggle-nav"><i class="fa fa-bars"></i></button>
+		<nav class="navbar" id="navbar">
+			<table class="nav-table">
+				<tbody>
+					<tr>
+						
+						<td><i class="fa fa-home "></i></td>
+						<td><a href="/" class="">首页</a></td>
+					</tr>
+					<tr>
+						
+						<td><i class="fa fa-archive "></i></td>
+						<td><a href="/archive" class="">归档</a></td>
+					</tr>
+									<tr>
+						<td><i class="fa fa-rss"></i></td>
+						<td><a href="/rss.xml">RSS</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</nav>
+	</header>
+	<section class="sidebar" id="sidebar">
+		<button type="button" class="toggle toggle-sm toggle-sidebar hide-sidebar"><i class="fa fa-arrow-left"></i></button>
+				<aside class="category">
+			<h1>文章分类</h1>
+			<ul class="category-list">
+							<li><a href="/category/FrontEnd">FrontEnd (1)</a></li>
+							<li><a href="/category/Frontend">Frontend (6)</a></li>
+							<li><a href="/category/Algorithm">Algorithm (1)</a></li>
+						</ul>
+		</aside>
+		
+				<aside class="archive">
+			<h1>文章归档</h1>
+			<ul class="archive-list">
+				
+							<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
+							<li><a href="/archive/index.html#2019">2019年12月 (4)</a></li>
+						</ul>
+				</aside>
+		
+				<aside class="tag">
+			<h1>标签</h1>
+			<div class="tag-cloud"><a href="/tag/JavaScript Redux" class="tag-link" style="font-size: 1em">JavaScript Redux</a><a href="/tag/HTTP" class="tag-link" style="font-size: 1em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 1em">性能优化</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 1em">React</a></div>  
+		</aside>
+			</section>
+</div>
+<!-- secondary end -->
+		<div class="primary">
+			<div class="main-content">
+				<article class="article">
+					<header class="article-header">
+						<h1 class="article-title">redux源代码阅读</h1>
+						<div class="article-meta">
+							<span class="meta publish-date">
+								<i class="fa fa-calendar"></i>2019-12-20
+							</span>
+							<span class="meta author">BY zhouzh1</span>
+						</div>
+					</header>
+					<section class="article-text article-main">
+						<p>Redux是一个常用的组件状态管理库，通过将应用的状态数据集中存储并且限制可以更改状态数据的路径，使得开发者可以更好的追踪以及预测应用状态的变化过程，Redux的源代码不到1000行，是一个学习源代码分析的不错对象.</p>
 <p>在浏览器中通过<code>script</code>标签加载<a href="https://unpkg.com/redux@4.0.4/dist/redux.js"></a>后，脚本会在全局作用域下添加<code>Redux</code>变量<br><img src="/site_assets/E57038ED-4FB7-4eca-AE2D-56F675EFF327.png" alt="redux object screenshot"></p>
 <p>对应的源代码如下</p>
 <pre><code class="lang-js">/**
@@ -577,285 +665,25 @@ function bindActionCreators(actionCreators, dispatch) {
     return boundActionCreators;
 }
 </code></pre>
-]]></description><link>https://zhouzh1.github.io/article/read-source-code-of-redux.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/read-source-code-of-redux.html.html</guid><pubDate>Fri, 20 Dec 2019 05:59:00 GMT</pubDate></item><item><title><![CDATA[HTTP缓存策略]]></title><description><![CDATA[<p>一般来说，对于html, css, js以及图片等静态资源文件，浏览器会进行缓存，这样下次访问这些资源的时候就可以直接从缓存获取，从而提升页面的加载速度，但是浏览器的缓存机制遵循一定的策略.</p>
-<h3 id="-">什么情况下会缓存？</h3>
-<p>如果希望资源被浏览器缓存到本地，需要满足以下条件：</p>
-<ol>
-<li><strong>http响应头Content-type必须标明当前资源是可被缓存的静态资源，例如text/html, application/javascript, text/css, image/png等等</strong></li>
-<li><strong>http响应头Cache-Control指明了该资源允许被缓存</strong></li>
-</ol>
-<h3 id="-http-">与缓存有关的HTTP请求头和响应头？</h3>
-<p><img src="/site_assets/http-cache-headers.png" alt="http缓存截图"></p>
-<ol>
-<li><strong>响应头</strong><ol>
-<li>Cache-Control: public max-age=3600, public代表资源可以被网络链路上的任何设备缓存，max-age指令代表缓存时长，例如max-age=3600表示浏览器应该缓存这份资源一个小时，Cache-Control请求头可以包含很多指令，详见<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">MDN解释</a></li>
-<li>Expires: Sat, 14 Dec 2019 02:07:08 GMT, 代表缓存资源的过期时间，Cache-Control的优先级比Expires高；</li>
-<li>Etag: W/&quot;5df19f2c-626bc&quot;, 代表当前资源文件内容的签名；</li>
-<li>Last-Modified: Thu, 12 Dec 2019 02:00:12 GMT, 代表当前资源文件最近一次的改动时间</li>
-</ol>
-</li>
-<li><strong>请求头</strong><ol>
-<li>If-Modified-Since: Thu, 12 Dec 2019 02:02:19 GMT, 代表当前资源文件最近一次的改动时间，询问服务器当前文件是否已经被更新；</li>
-<li>If-None-Match: W/&quot;13a175-16ef7d7b473&quot;, 代表资源文件内容的签名，询问服务器当前文件是否已经被更新；</li>
-</ol>
-</li>
-</ol>
-<h3 id="-">什么是强缓存？</h3>
-<p>所谓强缓存就是在浏览器的本地缓存里面找到了资源的副本并且副本未过期，不需要再向服务器发出请求，如图：<br><img src="/site_assets/strict-cache.png" alt="local cache"><br>此时浏览器自动给你一个200 OK(from disk cache)的响应</p>
-<h3 id="-">什么是协商缓存？</h3>
-<p>所谓协商缓存就是在浏览器的本地缓存里面未找找到了副本但是副本已过期，此时浏览器会向服务器发出请求，并且带上对应的If-Modified-Since和If-None-Match请求头，再次和服务器确认缓存是否真正已过期，服务器根据If-Modified-Since或If-None-Match请求头的内容判断文件是否发生了更新，如果是，则说明浏览器缓存确实过期，返回正常的200 OK，响应体为最新的文件内容，反之，服务器返回304 Not Modified，告诉浏览器可以继续使用本地缓存，响应体为空，免去了文件内容的下载时间，如图：<br><img src="/site_assets/condition-cache.png" alt="condition cache">;</p>
-<h3 id="-">静态资源总体的加载流程？</h3>
-<p>综合以上分析，浏览器在加载静态资源的时候，大概会经历以下流程：</p>
-<ol>
-<li>检查本地缓存是否有副本，如果没有，直接请求server，流程结束，如果有，检查缓存是否未过期；</li>
-<li>server通过Cache-Control的max-age指令指明资源的缓存时长，或者通过Expires的值指明资源的过期时刻，浏览器根据这些信息判断缓存是否还有效，如果有效，直接使用缓存文件，并返回200 OK(from disk cache)，如果已经过期，则进一步发出请求向server确定缓存是否真的已过期；</li>
-<li>server在返回资源的时候会带上Etag和Last-Modified这俩响应头，这样浏览器在本地缓存已过期并向server确认的时候，可以带上If-None-Match（对应Etag）和If-Modified-Since（对应Last-Modified）这俩请求头，server会根据这些信息判断资源是否真的已发生更新，如果是，server返回200 OK，http响应体为更新后的资源，如果否，server返回304 Not Modified，http响应体为空，指示浏览器可以继续使用本地的缓存资源.</li>
-</ol>
-]]></description><link>https://zhouzh1.github.io/article/cache-strategy-of-http-static-resource.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/cache-strategy-of-http-static-resource.html.html</guid><pubDate>Thu, 12 Dec 2019 11:38:00 GMT</pubDate></item><item><title><![CDATA[前端优化路径图]]></title><description><![CDATA[<p>微博上看到的关于前端优化的图<br><img src="/site_assets/frontend-optimize.jpg" alt="前端优化图"></p>
-]]></description><link>https://zhouzh1.github.io/article/frontend-optimize-image.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/frontend-optimize-image.html.html</guid><pubDate>Tue, 10 Dec 2019 11:32:00 GMT</pubDate></item><item><title><![CDATA[js中的in操作符和Object.keys方法]]></title><description><![CDATA[<h3 id="in-">in操作符</h3>
-<p><code>in</code>和<code>typeof</code>一样，只是操作符，不是函数，它用来判断对象是否拥有某个属性，例如：</p>
-<pre><code class="lang-js">console.log(&#39;alert&#39; in window); // true
-console.log(&#39;xxoo&#39; in window); // false
-</code></pre>
-<p>在js中，对象的属性查找和继承是基于原型链来实现的，可以使用<code>hasOwnProperty</code>方法判断一个属性是属于对象本身，还是属于它的上层原型：</p>
-<pre><code class="lang-js">console.log(window.hasOwnProperty(&#39;alert&#39;)); // true
-console.log(([]).hasOwnProperty(&#39;slice&#39;)); // false
-</code></pre>
-<p><code>in</code>操作符只负责判断在目标对象的原型链上能否找到目标属性，能找到则返回true，否则返回false：</p>
-<pre><code class="lang-js">console.log(&#39;slice&#39; in ([])); // true
-</code></pre>
-<p>同理，<code>for ... in</code>循环也会遍历到对象原型链上的属性：</p>
-<pre><code class="lang-js">function Foo() {
-    this.foo = &#39;foo&#39;;
-}
-Foo.prototype.bar = &#39;bar&#39;;
-Foo.prototype.__proto__.ox = &#39;ox&#39;;
-const f = new Foo();
-for (let key in f) {
-    console.log(key); // foo bar ox
-}
-</code></pre>
-<p>但是，像<code>__proto__</code>这样的私有属性是不会被遍历到的：</p>
-<pre><code class="lang-js">const foo = {};
-console.log(foo.hasOwnProperty(&#39;__proto__&#39;)); // false
-</code></pre>
-<p>当然，js是一门灵活的语言，当通过<code>JSON.parse</code>方法创建对象的时候，可以使得<code>__proto__</code>作为正常属性被遍历，而不是指向对象原型：</p>
-<pre><code class="lang-js">const obj = JSON.parse(&#39;{&quot;a&quot;:&quot;a&quot;,&quot;__proto__&quot;:{&quot;b&quot;:&quot;b&quot;}}&#39;);
-for (let key in obj) {
-    console.log(key); // a __proto__
-}
-</code></pre>
-<p>使用上面描述的方法可能可以在某些代码中发现原型污染漏洞.</p>
-<h3 id="object-keys-">Object.keys方法</h3>
-<p>Object.keys方法返回一个字符串数组，数组包含目标对象的所有属性名，<code>(o: object) =&gt; string[]</code>，但是只会包含对象本身的属性，上层原型对象上的属性不会包含在数组内：</p>
-<pre><code class="lang-js">function Foo() {
-    this.foo = &#39;foo&#39;;
-    this.oof = &#39;oof&#39;;
-}
-Foo.prototype.bar = &#39;bar&#39;;
-Foo.prototype.__proto__.ox = &#39;ox&#39;;
-const f = new Foo();
-console.log(Object.keys(f)); // [&#39;foo&#39;, &#39;oof&#39;]
-</code></pre>
-]]></description><link>https://zhouzh1.github.io/article/the-in-operator-and-object-keys-function.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/the-in-operator-and-object-keys-function.html.html</guid><pubDate>Tue, 10 Dec 2019 08:42:00 GMT</pubDate></item><item><title><![CDATA[洗牌算法]]></title><description><![CDATA[<p>洗牌算法，用于随机打乱一个有限列表内的元素顺序，目前公认最好的洗牌算法就是Fisher-Yates算法，使用JavaScript实现Fisher-Yates算法对一个数组进行顺序打乱的代码如下.</p>
-<pre><code class="lang-js">/**
- * Fisher-Yates算法
- * 将数组元素的顺序原地打乱
- * 时间复杂度O(N)
- * @param {Array&lt;any&gt;} 数组
- */
-function shuffle(arr) {
-    for (let i = arr.length - 1; i &gt; 0; i--) {
-        const idx = Math.floor(Math.random() * (i + 1));
-        const tmp = arr[i];
-        arr[i] = arr[idx];
-        arr[idx] = tmp; 
-    }
-}
-</code></pre>
-]]></description><link>https://zhouzh1.github.io/article/shuffle-algorithm.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/shuffle-algorithm.html.html</guid><pubDate>Wed, 30 Oct 2019 10:03:00 GMT</pubDate></item><item><title><![CDATA[React中setState方法的同步与异步]]></title><description><![CDATA[<h3 id="this-setstate-">this.setState方法内部做了什么？</h3>
-<p>调用this.setState方法后，先进行状态合并，并会触发状态更新，重新调用组件的render方法，render方法执行结束后会产生新的虚拟dom，最后React内部会对组件的新旧虚拟dom进行diff操作，得到针对旧虚拟dom的patch，最后根据patch来更新dom结构，实现视图更新.</p>
-<h3 id="this-setstate-">this.setState的同步和异步，为什么这样处理？</h3>
-<p>React的setState方法本质上都是同步操作，所谓异步，指的是将一系列的setState操作先收集起来，最终在函数执行结束时进行状态合并后再进行批量执行.</p>
-<p>之所以这样做，是因为如前文所述，每次调用setState方法都会触发视图更新，先将多次setState的调用收集起来，最终根据每次setState调用的状态参数进行状态合并后会得到最终的组件状态，这样一来，虽然调用了多次this.setState，但最终只会调用一次组件的render方法，视图也只会更新一次.</p>
-<h3 id="-">同步和异步分别发生在什么时机？</h3>
-<p>如前文所述，在函数的执行过程中，如果React想对this.setState进行“异步”操作，必须要能知晓这个函数什么时候会执行结束，在React中，组件生命周期函数的执行完全由React控制，事件处理程序由于合成事件的机制也被React所控制，因此在这两类函数里的this.setState都是“异步”处理，对于setTimeout和setInterval以及Promise回调这一类不在React管控范围内的函数里面，所有的this.setState就只能是同步处理了.</p>
-<pre><code class="lang-js">import React from &#39;react&#39;;
 
-class Foo extends React.Component {
-
-    state = {
-        a: &#39;a&#39;,
-    }
-
-    bar() {
-        this.setState({
-            a: &#39;A&#39;
-        });
-        console.log(this.state.a); // &#39;a&#39;
-    }
-
-    componentDidMount() {
-        setTimeout(() =&gt; {
-            this.setState({
-                a: &#39;A&#39;
-            });
-            console.log(this.state.a); // &#39;A&#39;
-        }, 0);
-
-        Promise.resolve().then(() =&gt; {
-            this.setState({
-                a: &#39;A&#39;
-            });
-            console.log(this.state.a); // &#39;A&#39;
-        });
-
-        this.setState({
-            a: &#39;A&#39;
-        });
-        console.log(this.state.a); // &#39;a&#39;
-    }
-
-    render() {
-        return (
-            &lt;div onClick={this.bar}&gt;bar&lt;/div&gt;
-        )
-    }
-}
-</code></pre>
-]]></description><link>https://zhouzh1.github.io/article/sync-and-async-of-react-setState.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/sync-and-async-of-react-setState.html.html</guid><pubDate>Thu, 24 Oct 2019 09:41:00 GMT</pubDate></item><item><title><![CDATA[script标签的async和defer属性]]></title><description><![CDATA[<p>首先，async和defer属性的作用都是指示浏览器加载外联脚本的具体方式，所以两个属性都必须用在外联脚本的script的标签上，否则无效.</p>
-<pre><code class="lang-js">&lt;script src=&quot;./a.js&quot; async&gt;&lt;/script&gt;
-&lt;script src=&quot;./b.js&quot; defer&gt;&lt;/script&gt;
-</code></pre>
-<h3 id="-async-defer">不使用async和defer</h3>
-<p>正常情况下，script标签会阻塞浏览器对HTML文档的解析，遇到script标签，浏览器会遵循下列步骤：<br>下载脚本 → 运行脚本 → 继续解析后面的文档内容.</p>
-<h3 id="async">async</h3>
-<p>async指示浏览器以异步的方式并行下载脚本，脚本下载过程中不会阻塞浏览器对HTML文档的解析，脚本下载完成后立即执行，因此脚本的执行顺序不确定，与script标签在HTML文档的顺序不一定保持一致.</p>
-<h3 id="defer">defer</h3>
-<p>defer指示浏览器先以并行方式下载脚本，也不会阻塞浏览器，与async不同的是，使用defer属性的脚本下载完成之后不会立即执行，而是在所有的defer脚本下载完成之后，并在DOMContentLoaded事件触发前按照script标签在HTML文档中的顺序执行.</p>
-<h3 id="-">总结</h3>
-<p>对script标签使用async和defer属性可以减少页面脚本总的下载时间，进而减少页面的白屏时间.</p>
-]]></description><link>https://zhouzh1.github.io/article/async-and-defer-attribute-of-script-tag.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/async-and-defer-attribute-of-script-tag.html.html</guid><pubDate>Wed, 23 Oct 2019 10:07:00 GMT</pubDate></item><item><title><![CDATA[js中的对象继承方式以及优劣对比分析]]></title><description><![CDATA[<h3 id="-">原型链继承</h3>
-<pre><code class="lang-js">// 父类构造函数
-function Parent() {
-    this.name = &#39;John&#39;;
-    this.habits = [&#39;basketball&#39;, &#39;cook&#39;, &#39;boxing&#39;];
-}
-// 父类原型
-Parent.prototype.sayHello = function sayHello() {
-    console.log(&#39;hello, world&#39;);
-}
-// 子类构造函数
-function Child() {
-    // @empty
-}
-// 将子类的原型指向父类的一个实例
-Child.prototype = new Parent();
-
-const child_1 = new Child();
-console.log(child_1.name); // John
-console.log(child_2.habits); // [&#39;basketball&#39;, &#39;cook&#39;, &#39;boxing&#39;]
-const child_2 = new Child();
-console.log(child_1.habits === child_2.habits); // true
-child_1.habits.push(&#39;running&#39;);
-console.log(child_1.habits); // [&#39;basketball&#39;, &#39;cook&#39;, &#39;boxing&#39;, &#39;running&#39;]
-</code></pre>
-<p><strong>缺点</strong>：父类实例中的引用类型对象由所有的子类实例共享，只要其中一个子类实例对其进行了修改，便会影响其他子类实例，容易“牵一发动全身”，造成容易忽略的BUG.</p>
-<h3 id="-">构造函数继承</h3>
-<pre><code class="lang-js">function Parent(name) {
-    this.name = name;
-    this.habits = [&#39;boxing&#39;];
-    this.sayHello = function sayHello() {
-        console.log(&#39;hello, world!&#39;);
-    }
-}
-
-function Child() {
-    Parent.call(this, &#39;frank&#39;);
-}
-
-const child_1 = new Child();
-const child_2 = new Child();
-child_1.habits.push(&#39;cooking&#39;);
-console.log(child_1.habits); // [&#39;boxing&#39;, &#39;cooking&#39;]
-console.log(child_2.habits); // [&#39;boxing&#39;]
-console.log(child_1.sayHello === child_2.sayHello); // false
-</code></pre>
-<p><strong>优点</strong>：</p>
-<ol>
-<li>与原型链的方式相比，解决了不同的子类实例共享原型链上的引用类型对象的问题，因为所有的子类实例都拥有属于自身的属性；</li>
-<li>在子类构造函数中调用父类构造函数的同时，可以传递参数，实现不同的子类实例上的属性保存不同的值</li>
-</ol>
-<p><strong>缺点</strong>：对象方法附加在实例上，每创建一个子类实例，就会将相关的方法也创建一遍，而函数的创建需要占用内存空间</p>
-<h3 id="-">原型链-构造函数组合式继承</h3>
-<pre><code class="lang-js">function Parent(name) {
-    this.name = name;
-    this.habits = [&#39;boxing&#39;];
-}
-Parent.prototype.sayHello = function sayHello() {
-    console.log(&#39;hello, world&#39;);
-}
-
-function Child(name) {
-    Parent.call(this, name);
-}
-
-Child.prototype = new Parent();
-
-const child_1 = new Child(&#39;trump&#39;);
-const child_2 = new Child(&#39;willianm&#39;);
-console.log(child_1.sayHello === child_2.sayHello); // true
-</code></pre>
-<p><strong>优点</strong>：结合了原型链和构造函数两种方式的优势，既解决了子类实例共享引用类型属性的问题，又实现了对象方法只需要创建一次即可<br><strong>缺点</strong>：</p>
-<ol>
-<li>每创建一个子类实例，需要调用两次父类构造函数；</li>
-<li>子类实例和子类实例的原型上存在同名属性，造成冗余.</li>
-</ol>
-<h3 id="-">原型式继承</h3>
-<pre><code class="lang-js">function createObj(parentObj) {
-    function F() {}
-    F.prototype = parentObj;
-    return new F();
-} 
-const parent = {
-    habits: [&#39;boxing&#39;]
-};
-const child = createObj(parent);
-</code></pre>
-<p>本质上和ES6的<code>Object.create</code>方法一样，只是改变了子类构造函数的原型对象，缺点和基于原型链的继承方式一样.</p>
-<h3 id="-">寄生式继承</h3>
-<pre><code class="lang-js">function createObj(parentObj) {
-    const childObj = Object.create(parentObj);
-    childObj.sayHello = function sayHello() {
-        console.log(&#39;hello, world&#39;);
-    }
-}
-</code></pre>
-<p>和基于构造函数实现继承的方式相比，省略了父类构造函数的调用，但是两种方式缺点一样.</p>
-<h3 id="-">寄生-组合式继承</h3>
-<pre><code class="lang-js">function Parent() {
-    this.firstName = &#39;gates&#39;;
-}
-
-Parent.prototype.sayHello = function sayHello() {
-    console.log(&#39;hello, world&#39;);
-}
-
-function Child(lastName) {
-    Parent.call(this);
-    this.lastName = lastName;
-}
-
-const prototype = Object.create(Parent.prototype);
-Child.prototype = prototype;
-prototype.constructor = Child;
-
-// 寄生-组合式方法封装
-function inheritance(Child, Parent) {
-    const prototype = Object.create(Parent);
-    Child.prototype = prototype;
-    prototype.constructor = Child;
-}
-</code></pre>
-<p>从名字就可以看出，这种方式集成了寄生和组合方式的优点，绕过了组合方式需要两次调用父类构造函数以及属性冗余的问题.</p>
-]]></description><link>https://zhouzh1.github.io/article/js-inheritance.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/js-inheritance.html.html</guid><pubDate>Tue, 08 Oct 2019 10:23:00 GMT</pubDate></item></channel></rss>
+					</section>
+					<section class="article-tags">
+													<a href="/tag/JavaScript Redux">#JavaScript Redux</a>
+											</section>
+					<section class="article-nav">
+					
+											<a href="/article/cache-strategy-of-http-static-resource.html" title="下一篇:HTTP缓存策略" class="next-article"></a>
+											
+					</section>
+				</article>
+			</div>
+			<footer class="footer">
+	<p class="copyright">Powered by <a href="https://github.com/zhouzh1/pencil" target="_blank">Pencil</a> & Hosted by <a href="https://github.com" target="_blank">Github</a></p>
+</footer>
+		</div>
+	</div>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="/theme_assets/js/vendor/zepto.js"></script>
+<script src="/theme_assets/js/site.js"></script>
+</body>
+</html>
