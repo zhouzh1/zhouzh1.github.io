@@ -1,13 +1,13 @@
 ---
 title: redux源代码阅读
-tags: [JavaScript Redux]
-category: FrontEnd
+tags: [JavaScript, Redux]
+category: Frontend
 filename: read source code of redux
 createdTime: 2019-12-20 13:59
 ---
 Redux是一个常用的组件状态管理库，通过将应用的状态数据集中存储并且限制可以更改状态数据的路径，使得开发者可以更好的追踪以及预测应用状态的变化过程，Redux的源代码不到1000行，是一个学习源代码分析的不错对象.
 
-在浏览器中通过`script`标签加载[](https://unpkg.com/redux@4.0.4/dist/redux.js)后，脚本会在全局作用域下添加`Redux`变量
+在浏览器中通过`script`标签加载[](https://unpkg.com/redux@4.0.4/dist/redux.js)后，脚本会在全局作用域下添加`Redux`变量.
 ![redux object screenshot](/site_assets/E57038ED-4FB7-4eca-AE2D-56F675EFF327.png)
 
 对应的源代码如下
@@ -38,7 +38,7 @@ Redux是一个常用的组件状态管理库，通过将应用的状态数据集
 	Object.defineProperty(exports, '__esModule', { value: true });
 }));
 ```
-### __DO_NOT_USE__ActionTypes
+### __DO_NOT_USE\_\_ActionTypes
 ```js
 /**
  * 生成以小数点分割的随机数

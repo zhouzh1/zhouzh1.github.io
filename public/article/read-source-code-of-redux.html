@@ -51,8 +51,7 @@
 				<aside class="category">
 			<h1>文章分类</h1>
 			<ul class="category-list">
-							<li><a href="/category/FrontEnd">FrontEnd (1)</a></li>
-							<li><a href="/category/Frontend">Frontend (6)</a></li>
+							<li><a href="/category/Frontend">Frontend (7)</a></li>
 							<li><a href="/category/Algorithm">Algorithm (1)</a></li>
 						</ul>
 		</aside>
@@ -68,7 +67,7 @@
 		
 				<aside class="tag">
 			<h1>标签</h1>
-			<div class="tag-cloud"><a href="/tag/JavaScript Redux" class="tag-link" style="font-size: 1em">JavaScript Redux</a><a href="/tag/HTTP" class="tag-link" style="font-size: 1em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 1em">性能优化</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 1em">React</a></div>  
+			<div class="tag-cloud"><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Redux" class="tag-link" style="font-size: 1em">Redux</a><a href="/tag/HTTP" class="tag-link" style="font-size: 1em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 1em">性能优化</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 1em">React</a></div>  
 		</aside>
 			</section>
 </div>
@@ -87,7 +86,7 @@
 					</header>
 					<section class="article-text article-main">
 						<p>Redux是一个常用的组件状态管理库，通过将应用的状态数据集中存储并且限制可以更改状态数据的路径，使得开发者可以更好的追踪以及预测应用状态的变化过程，Redux的源代码不到1000行，是一个学习源代码分析的不错对象.</p>
-<p>在浏览器中通过<code>script</code>标签加载<a href="https://unpkg.com/redux@4.0.4/dist/redux.js"></a>后，脚本会在全局作用域下添加<code>Redux</code>变量<br><img src="/site_assets/E57038ED-4FB7-4eca-AE2D-56F675EFF327.png" alt="redux object screenshot"></p>
+<p>在浏览器中通过<code>script</code>标签加载<a href="https://unpkg.com/redux@4.0.4/dist/redux.js"></a>后，脚本会在全局作用域下添加<code>Redux</code>变量.<br><img src="/site_assets/E57038ED-4FB7-4eca-AE2D-56F675EFF327.png" alt="redux object screenshot"></p>
 <p>对应的源代码如下</p>
 <pre><code class="lang-js">/**
  * 先探测脚本所处的运行环境和加载机制，然后将redux的方法和属性挂载到对应的作用域
@@ -115,7 +114,7 @@
     Object.defineProperty(exports, &#39;__esModule&#39;, { value: true });
 }));
 </code></pre>
-<h3 id="do_not_useactiontypes"><strong>DO_NOT_USE</strong>ActionTypes</h3>
+<h3 id="__do_not_use__actiontypes">__DO_NOT_USE__ActionTypes</h3>
 <pre><code class="lang-js">/**
  * 生成以小数点分割的随机数
  */
@@ -668,7 +667,8 @@ function bindActionCreators(actionCreators, dispatch) {
 
 					</section>
 					<section class="article-tags">
-													<a href="/tag/JavaScript Redux">#JavaScript Redux</a>
+													<a href="/tag/JavaScript">#JavaScript</a>
+													<a href="/tag/Redux">#Redux</a>
 											</section>
 					<section class="article-nav">
 					
