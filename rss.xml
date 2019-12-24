@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 24 Dec 2019 14:58:03 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Tue, 24 Dec 2019 14:58:03 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[redux源代码阅读]]></title><description><![CDATA[<p>Redux是一个常用的组件状态管理库，通过将应用的状态数据集中存储并且限制可以更改状态数据的路径，使得开发者可以更好的追踪以及预测应用状态的变化过程，Redux的源代码不到1000行，是一个学习源代码分析的不错对象.</p>
-<p>在浏览器中通过<code>script</code>标签加载<a href="https://unpkg.com/redux@4.0.4/dist/redux.js"></a>后，脚本会在全局作用域下添加<code>Redux</code>变量<br><img src="/site_assets/E57038ED-4FB7-4eca-AE2D-56F675EFF327.png" alt="redux object screenshot"></p>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 24 Dec 2019 15:06:17 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Tue, 24 Dec 2019 15:06:17 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[redux源代码阅读]]></title><description><![CDATA[<p>Redux是一个常用的组件状态管理库，通过将应用的状态数据集中存储并且限制可以更改状态数据的路径，使得开发者可以更好的追踪以及预测应用状态的变化过程，Redux的源代码不到1000行，是一个学习源代码分析的不错对象.</p>
+<p>在浏览器中通过<code>script</code>标签加载<a href="https://unpkg.com/redux@4.0.4/dist/redux.js"></a>后，脚本会在全局作用域下添加<code>Redux</code>变量.<br><img src="/site_assets/E57038ED-4FB7-4eca-AE2D-56F675EFF327.png" alt="redux object screenshot"></p>
 <p>对应的源代码如下</p>
 <pre><code class="lang-js">/**
  * 先探测脚本所处的运行环境和加载机制，然后将redux的方法和属性挂载到对应的作用域
@@ -27,7 +27,7 @@
     Object.defineProperty(exports, &#39;__esModule&#39;, { value: true });
 }));
 </code></pre>
-<h3 id="do_not_useactiontypes"><strong>DO_NOT_USE</strong>ActionTypes</h3>
+<h3 id="__do_not_use__actiontypes">__DO_NOT_USE__ActionTypes</h3>
 <pre><code class="lang-js">/**
  * 生成以小数点分割的随机数
  */
