@@ -51,6 +51,7 @@
 				<aside class="category">
 			<h1>文章分类</h1>
 			<ul class="category-list">
+							<li><a href="/category/FrontEnd">FrontEnd (1)</a></li>
 							<li><a href="/category/Frontend">Frontend (7)</a></li>
 							<li><a href="/category/Algorithm">Algorithm (1)</a></li>
 						</ul>
@@ -62,6 +63,9 @@
 				
 							<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
 							<li><a href="/archive/index.html#2019">2019年12月 (4)</a></li>
+						</ul>
+				
+							<li><a href="/archive/index.html#2020">2020年03月 (1)</a></li>
 						</ul>
 				</aside>
 		
@@ -76,6 +80,47 @@
 		<div class="primary">
 					<div class="main-content">
 							<ul class="article-list">
+									
+					<li class="article-item">
+						<header class="article-header">
+							<h1 class="article-title">
+								<a href="/article/use-reduce-to-implement-map.html">利用reduce方法实现map方法</a>
+							</h1>
+							<div class="article-meta">
+								<span class="meta publish-date">
+									<i class="fa fa-calendar"></i>2020-3-19
+								</span>
+								<span class="meta author">BY zhouzh1</span>
+							</div>
+						</header>
+						<section class="article-text article-abstract">
+							<pre><code class="lang-js">/**
+ * 利用reduce方法实现map方法
+ * @param {function} callback map回调函数
+ * @param {object} context callback执行时的this上下文对象
+ */
+Array.prototype.mapImplementedByReduce = function (callback, context = null) {
+    const reducer = function (accumulator, currentValue, index, array) {
+        const result = callback.call(context, currentValue, index, array);
+        accumulator.push(result);
+        return accumulator;
+    }
+    return this.reduce(reducer, []);
+}
+
+/**
+ * test
+ */
+const arr = [1, 3, 5];
+const callback = function (number, index, array) {
+    return Math.pow(number, 3);
+}
+
+console.log(arr.mapImplementedByReduce(callback)); // [ 1, 27, 125 ]
+</code></pre>
+						</section>
+						<a href="/article/use-reduce-to-implement-map.html" class="read-all" role="button">阅读全文</a>
+					</li>
 									
 					<li class="article-item">
 						<header class="article-header">
