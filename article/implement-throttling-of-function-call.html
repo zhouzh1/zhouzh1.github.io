@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/theme_assets/css/font-awesome-4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="/theme_assets/css/site.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-	<title>Index - Daily Notes</title>
+	<title>实现函数节流</title>
 </head>
 <body>
 	<div class="body-wrapper">
@@ -76,40 +76,109 @@
 			</section>
 </div>
 <!-- secondary end -->
-		<!-- primary start -->
 		<div class="primary">
-					<div class="mark">
-				<span class="mark-type">标签:</span><span class="mark-content">React</span>
-			</div>
-					<div class="main-content">
-							<ul class="article-list">
-									
-					<li class="article-item">
-						<header class="article-header">
-							<h1 class="article-title">
-								<a href="/article/sync-and-async-of-react-setState.html">React中setState方法的同步与异步</a>
-							</h1>
-							<div class="article-meta">
-								<span class="meta publish-date">
-									<i class="fa fa-calendar"></i>2019-10-24
-								</span>
-								<span class="meta author">BY zhouzh1</span>
-							</div>
-						</header>
-						<section class="article-text article-abstract">
-							<h3 id="this-setstate-">this.setState方法内部做了什么？</h3><p>调用this.setState方法后，先进行状态合并，并会触发状态更新，重新调用组件的render方法，render方法执行结束后会产生新的虚拟dom，最后React内部会对组件的新旧虚拟dom进行diff操作，得到针对旧虚拟dom的patch，最后根据patch来更新dom结构，实现视图更新.</p><h3 id="this-setstate-">this.setState的同步和异步，为什么这样处理？</h3><p>React的setState方法本质上都是同步操作，所谓异步，指的是将一系列的setState操作先收集起来，最终在函数执行结束时进行状态合并后再进行批量执行.</p><p>之所以这样做，是因为如前文所述，每次调用setState方法都会触发视图更新，先将多次setState的调用收集起来，最终根据每次setState调用的状态参数进行状态合并后会得到最终的组件状态，这样一来，虽然调用了多次this.setState，但最终只会调用一次组件的render方法，视图也只会更新一次.</p>
-						</section>
-						<a href="/article/sync-and-async-of-react-setState.html" class="read-all" role="button">阅读全文</a>
-					</li>
-								</ul>
+			<div class="main-content">
+				<article class="article">
+					<header class="article-header">
+						<h1 class="article-title">实现函数节流</h1>
+						<div class="article-meta">
+							<span class="meta publish-date">
+								<i class="fa fa-calendar"></i>2020-3-21
+							</span>
+							<span class="meta author">BY zhouzh1</span>
 						</div>
-			
-	
+					</header>
+					<section class="article-text article-main">
+						<pre><code class="lang-js">/**
+ * 函数节流
+ * @param {function} func 需要节流的函数
+ * @param {number} interval 函数的执行间隔（毫秒）
+ * @param {object} options { leading: true, tailing: false }
+ */
+function throttle(func, interval, options) {
+    let canRun = false,    // 是否可以执行函数
+        lastInvokeTime = 0,    // 函数上一次被执行的时刻（时间戳）
+        tid = null;    // 定时器id，设置间隔过后再次执行一次函数
+    // leading和tailing不能同时为false
+    const { leading = true, tailing = false } = options || {};
+    const throttled = function throttled(...args) {
+        let now = Date.now();
+        if (!lastInvokeTime) {
+            if (leading) {
+                canRun = true;
+            }
+        } else {
+            if (now - lastInvokeTime &gt;= interval) {
+                canRun = true;
+            }
+        }
+        if (canRun) {
+            if (tid) {
+                clearTimeout(tid);
+                tid = null;
+            }
+            canRun = false;
+            lastInvokeTime = now;
+            func.apply(this, args);
+        } else if (!tid &amp;&amp; tailing) {
+            tid = setTimeout(function () {
+                func.apply(this, args);
+                lastInvokeTime = 0;
+                tid = null;
+            }, now - lastInvokeTime);
+        }
+    }
+
+    /**
+     * 取消最后一次的函数执行
+     */
+    throttled.cancel = function cancel() {
+        lastInvokeTime = 0;
+        if (tid) {
+            clearTimeout(tid);
+            tid = null;
+        }
+    }
+
+    return throttled;
+}
+
+// test
+let count = 0;
+function increment() {
+    count += 1;
+    console.log((new Date().getSeconds()), count);
+}
+
+const incrementThrottled = throttle(increment, 3000);
+
+while (count &lt; 5) {
+    incrementThrottled();
+}
+// test result
+// 47 1
+// 50 2
+// 53 3
+// 56 4
+// 59 5
+
+</code></pre>
+
+					</section>
+					<section class="article-tags">
+													<a href="/tag/JavaScript">#JavaScript</a>
+											</section>
+					<section class="article-nav">
+					
+											<a href="/article/use-reduce-to-implement-map.html" title="下一篇:利用reduce方法实现map方法" class="next-article"></a>
+											
+					</section>
+				</article>
+			</div>
 			<footer class="footer">
 	<p class="copyright">Powered by <a href="https://github.com/zhouzh1/pencil" target="_blank">Pencil</a> & Hosted by <a href="https://github.com" target="_blank">Github</a></p>
 </footer>
 		</div>
-		<!-- primary end -->
 	</div>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="/theme_assets/js/vendor/zepto.js"></script>
