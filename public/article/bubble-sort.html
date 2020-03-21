@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/theme_assets/css/font-awesome-4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="/theme_assets/css/site.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-	<title>前端优化路径图</title>
+	<title>冒泡排序</title>
 </head>
 <body>
 	<div class="body-wrapper">
@@ -78,25 +78,44 @@
 			<div class="main-content">
 				<article class="article">
 					<header class="article-header">
-						<h1 class="article-title">前端优化路径图</h1>
+						<h1 class="article-title">冒泡排序</h1>
 						<div class="article-meta">
 							<span class="meta publish-date">
-								<i class="fa fa-calendar"></i>2019-12-10
+								<i class="fa fa-calendar"></i>2020-3-21
 							</span>
 							<span class="meta author">BY zhouzh1</span>
 						</div>
 					</header>
 					<section class="article-text article-main">
-						<p>微博上看到的关于前端优化的图<br><img src="/site_assets/frontend-optimize.jpg" alt="前端优化图"></p>
+						<pre><code class="lang-js">/**
+ * 冒泡排序，时间复杂度为O(N^2)
+ */
+function bubbleSort(arr) {
+    for (i = arr.length - 1; i &gt; 0; i--) {
+        for (j = 0; j &lt; i; j++) {
+            if (arr[j] &gt; arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            }
+        }
+    }
+}
+// test
+const arr = new Array(10);
+for (let i = 0; i &lt; arr.length; i++) {
+    arr[i] = Math.round(Math.random() * 80 + 20)
+}
+console.log(arr);
+bubbleSort(arr);
+console.log(arr);
+</code></pre>
 
 					</section>
 					<section class="article-tags">
-													<a href="/tag/性能优化">#性能优化</a>
+													<a href="/tag/Algorithm">#Algorithm</a>
 											</section>
 					<section class="article-nav">
-											<a href="/article/cache-strategy-of-http-static-resource.html" title="上一篇:HTTP缓存策略" class="prev-article"></a>
 					
-											<a href="/article/the-in-operator-and-object-keys-function.html" title="下一篇:js中的in操作符和Object.keys方法" class="next-article"></a>
+											<a href="/article/calculate-the-nth-value-of-fibonacci-sequence.html" title="下一篇:计算斐波拉契数列" class="next-article"></a>
 											
 					</section>
 				</article>

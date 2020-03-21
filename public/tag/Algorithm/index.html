@@ -51,7 +51,7 @@
 				<aside class="category">
 			<h1>文章分类</h1>
 			<ul class="category-list">
-							<li><a href="/category/算法">算法 (2)</a></li>
+							<li><a href="/category/算法">算法 (3)</a></li>
 							<li><a href="/category/Frontend">Frontend (9)</a></li>
 						</ul>
 		</aside>
@@ -63,13 +63,13 @@
 											<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
 											<li><a href="/archive/index.html#2019">2019年12月 (4)</a></li>
 													
-											<li><a href="/archive/index.html#2020">2020年03月 (3)</a></li>
+											<li><a href="/archive/index.html#2020">2020年03月 (4)</a></li>
 												</ul>
 		</aside>
 		
 				<aside class="tag">
 			<h1>标签</h1>
-			<div class="tag-cloud"><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Redux" class="tag-link" style="font-size: 0.5em">Redux</a><a href="/tag/HTTP" class="tag-link" style="font-size: 0.5em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 0.5em">性能优化</a><a href="/tag/React" class="tag-link" style="font-size: 0.5em">React</a></div>  
+			<div class="tag-cloud"><a href="/tag/Algorithm" class="tag-link" style="font-size: 1.5em">Algorithm</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Redux" class="tag-link" style="font-size: 0.5em">Redux</a><a href="/tag/HTTP" class="tag-link" style="font-size: 0.5em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 0.5em">性能优化</a><a href="/tag/React" class="tag-link" style="font-size: 0.5em">React</a></div>  
 		</aside>
 			</section>
 </div>
@@ -81,6 +81,44 @@
 			</div>
 					<div class="main-content">
 							<ul class="article-list">
+									
+					<li class="article-item">
+						<header class="article-header">
+							<h1 class="article-title">
+								<a href="/article/bubble-sort.html">冒泡排序</a>
+							</h1>
+							<div class="article-meta">
+								<span class="meta publish-date">
+									<i class="fa fa-calendar"></i>2020-3-21
+								</span>
+								<span class="meta author">BY zhouzh1</span>
+							</div>
+						</header>
+						<section class="article-text article-abstract">
+							<pre><code class="lang-js">/**
+ * 冒泡排序，时间复杂度为O(N^2)
+ */
+function bubbleSort(arr) {
+    for (i = arr.length - 1; i &gt; 0; i--) {
+        for (j = 0; j &lt; i; j++) {
+            if (arr[j] &gt; arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            }
+        }
+    }
+}
+// test
+const arr = new Array(10);
+for (let i = 0; i &lt; arr.length; i++) {
+    arr[i] = Math.round(Math.random() * 80 + 20)
+}
+console.log(arr);
+bubbleSort(arr);
+console.log(arr);
+</code></pre>
+						</section>
+						<a href="/article/bubble-sort.html" class="read-all" role="button">阅读全文</a>
+					</li>
 									
 					<li class="article-item">
 						<header class="article-header">
