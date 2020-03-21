@@ -51,27 +51,25 @@
 				<aside class="category">
 			<h1>文章分类</h1>
 			<ul class="category-list">
-							<li><a href="/category/FrontEnd">FrontEnd (2)</a></li>
-							<li><a href="/category/Frontend">Frontend (7)</a></li>
-							<li><a href="/category/Algorithm">Algorithm (1)</a></li>
+							<li><a href="/category/算法">算法 (2)</a></li>
+							<li><a href="/category/Frontend">Frontend (9)</a></li>
 						</ul>
 		</aside>
 		
 				<aside class="archive">
 			<h1>文章归档</h1>
 			<ul class="archive-list">
-				
-							<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
-							<li><a href="/archive/index.html#2019">2019年12月 (4)</a></li>
-						</ul>
-				
-							<li><a href="/archive/index.html#2020">2020年03月 (2)</a></li>
-						</ul>
-				</aside>
+								
+											<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
+											<li><a href="/archive/index.html#2019">2019年12月 (4)</a></li>
+													
+											<li><a href="/archive/index.html#2020">2020年03月 (3)</a></li>
+												</ul>
+		</aside>
 		
 				<aside class="tag">
 			<h1>标签</h1>
-			<div class="tag-cloud"><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Redux" class="tag-link" style="font-size: 0.5em">Redux</a><a href="/tag/HTTP" class="tag-link" style="font-size: 0.5em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 0.5em">性能优化</a><a href="/tag/Algorithm" class="tag-link" style="font-size: 0.5em">Algorithm</a><a href="/tag/React" class="tag-link" style="font-size: 0.5em">React</a></div>  
+			<div class="tag-cloud"><a href="/tag/Algorithm" class="tag-link" style="font-size: 1em">Algorithm</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Redux" class="tag-link" style="font-size: 0.5em">Redux</a><a href="/tag/HTTP" class="tag-link" style="font-size: 0.5em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 0.5em">性能优化</a><a href="/tag/React" class="tag-link" style="font-size: 0.5em">React</a></div>  
 		</aside>
 			</section>
 </div>
@@ -79,10 +77,51 @@
 		<!-- primary start -->
 		<div class="primary">
 					<div class="mark">
-				<span class="mark-type">分类:</span><span class="mark-content">Algorithm</span>
+				<span class="mark-type">分类:</span><span class="mark-content">算法</span>
 			</div>
 					<div class="main-content">
 							<ul class="article-list">
+									
+					<li class="article-item">
+						<header class="article-header">
+							<h1 class="article-title">
+								<a href="/article/calculate-the-nth-value-of-fibonacci-sequence.html">计算斐波拉契数列</a>
+							</h1>
+							<div class="article-meta">
+								<span class="meta publish-date">
+									<i class="fa fa-calendar"></i>2020-3-21
+								</span>
+								<span class="meta author">BY zhouzh1</span>
+							</div>
+						</header>
+						<section class="article-text article-abstract">
+							<h1 id="-">纯粹的递归版</h1><pre><code class="lang-js">/**
+ * 单纯的进行递归操作效率及其低下，因为算法内部做了大量的重复计算，时间复杂度为O(2^n)
+ */
+function fibonacci(n) {
+    if (n &lt;= 1) {
+        return n;
+    } else {
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}
+</code></pre><h1 id="-">带缓存的递归版</h1><pre><code class="lang-js">/**
+ * 将计算好的结果缓存起来，这样可以避免重复计算，时间复杂度为O(n)
+ */
+const memory = [0, 1];
+function fibonacci(n) {
+    if (typeof memory[n] === 'number') {
+        return memory[n];
+    } else {
+        const result = fibonacci(n - 1) + fibonacci(n - 2);
+        memory[n] = result;
+        return result;
+    }
+}
+</code></pre><h1 id="-">循环版</h1>
+						</section>
+						<a href="/article/calculate-the-nth-value-of-fibonacci-sequence.html" class="read-all" role="button">阅读全文</a>
+					</li>
 									
 					<li class="article-item">
 						<header class="article-header">

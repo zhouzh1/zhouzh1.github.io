@@ -1,7 +1,7 @@
 ---
 title: 利用reduce方法实现map方法
 tags: [JavaScript]
-category: FrontEnd
+category: Frontend
 filename: use reduce to implement map
 createdTime: 2020-03-19 22:12
 ---

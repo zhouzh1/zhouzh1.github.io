@@ -1,4 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sat, 21 Mar 2020 07:18:26 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sat, 21 Mar 2020 07:18:26 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[实现函数节流]]></title><description><![CDATA[<pre><code class="lang-js">/**
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sat, 21 Mar 2020 09:31:23 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sat, 21 Mar 2020 09:31:23 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[计算斐波拉契数列]]></title><description><![CDATA[<h1 id="-">纯粹的递归版</h1>
+<pre><code class="lang-js">/**
+ * 单纯的进行递归操作效率及其低下，因为算法内部做了大量的重复计算，时间复杂度为O(2^n)
+ */
+function fibonacci(n) {
+    if (n &lt;= 1) {
+        return n;
+    } else {
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}
+</code></pre>
+<h1 id="-">带缓存的递归版</h1>
+<pre><code class="lang-js">/**
+ * 将计算好的结果缓存起来，这样可以避免重复计算，时间复杂度为O(n)
+ */
+const memory = [0, 1];
+function fibonacci(n) {
+    if (typeof memory[n] === &#39;number&#39;) {
+        return memory[n];
+    } else {
+        const result = fibonacci(n - 1) + fibonacci(n - 2);
+        memory[n] = result;
+        return result;
+    }
+}
+</code></pre>
+<h1 id="-">循环版</h1>
+<pre><code class="lang-js">/**
+ * 循环计算，时间复杂度为O(n)
+ */ 
+const memory = [0, 1];
+function fibonacci(n) {
+    if (n &lt;= 1) {
+        return memory[n];
+    } else {
+        let i = 2;
+        while (i &lt;= n) {
+            memory[i] = memory[i - 1] + memory[i - 2];
+            i++;
+        }
+        return memory[n];
+    }
+}
+</code></pre>
+]]></description><link>https://zhouzh1.github.io/article/calculate-the-nth-value-of-fibonacci-sequence.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/calculate-the-nth-value-of-fibonacci-sequence.html.html</guid><pubDate>Sat, 21 Mar 2020 09:06:00 GMT</pubDate></item><item><title><![CDATA[实现函数节流]]></title><description><![CDATA[<pre><code class="lang-js">/**
  * 函数节流
  * @param {function} func 需要节流的函数
  * @param {number} interval 函数的执行间隔（毫秒）
@@ -833,127 +878,4 @@ class Foo extends React.Component {
 <p>defer指示浏览器先以并行方式下载脚本，也不会阻塞浏览器，与async不同的是，使用defer属性的脚本下载完成之后不会立即执行，而是在所有的defer脚本下载完成之后，并在DOMContentLoaded事件触发前按照script标签在HTML文档中的顺序执行.</p>
 <h3 id="-">总结</h3>
 <p>对script标签使用async和defer属性可以减少页面脚本总的下载时间，进而减少页面的白屏时间.</p>
-]]></description><link>https://zhouzh1.github.io/article/async-and-defer-attribute-of-script-tag.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/async-and-defer-attribute-of-script-tag.html.html</guid><pubDate>Wed, 23 Oct 2019 10:07:00 GMT</pubDate></item><item><title><![CDATA[js中的对象继承方式以及优劣对比分析]]></title><description><![CDATA[<h3 id="-">原型链继承</h3>
-<pre><code class="lang-js">// 父类构造函数
-function Parent() {
-    this.name = &#39;John&#39;;
-    this.habits = [&#39;basketball&#39;, &#39;cook&#39;, &#39;boxing&#39;];
-}
-// 父类原型
-Parent.prototype.sayHello = function sayHello() {
-    console.log(&#39;hello, world&#39;);
-}
-// 子类构造函数
-function Child() {
-    // @empty
-}
-// 将子类的原型指向父类的一个实例
-Child.prototype = new Parent();
-
-const child_1 = new Child();
-console.log(child_1.name); // John
-console.log(child_2.habits); // [&#39;basketball&#39;, &#39;cook&#39;, &#39;boxing&#39;]
-const child_2 = new Child();
-console.log(child_1.habits === child_2.habits); // true
-child_1.habits.push(&#39;running&#39;);
-console.log(child_1.habits); // [&#39;basketball&#39;, &#39;cook&#39;, &#39;boxing&#39;, &#39;running&#39;]
-</code></pre>
-<p><strong>缺点</strong>：父类实例中的引用类型对象由所有的子类实例共享，只要其中一个子类实例对其进行了修改，便会影响其他子类实例，容易“牵一发动全身”，造成容易忽略的BUG.</p>
-<h3 id="-">构造函数继承</h3>
-<pre><code class="lang-js">function Parent(name) {
-    this.name = name;
-    this.habits = [&#39;boxing&#39;];
-    this.sayHello = function sayHello() {
-        console.log(&#39;hello, world!&#39;);
-    }
-}
-
-function Child() {
-    Parent.call(this, &#39;frank&#39;);
-}
-
-const child_1 = new Child();
-const child_2 = new Child();
-child_1.habits.push(&#39;cooking&#39;);
-console.log(child_1.habits); // [&#39;boxing&#39;, &#39;cooking&#39;]
-console.log(child_2.habits); // [&#39;boxing&#39;]
-console.log(child_1.sayHello === child_2.sayHello); // false
-</code></pre>
-<p><strong>优点</strong>：</p>
-<ol>
-<li>与原型链的方式相比，解决了不同的子类实例共享原型链上的引用类型对象的问题，因为所有的子类实例都拥有属于自身的属性；</li>
-<li>在子类构造函数中调用父类构造函数的同时，可以传递参数，实现不同的子类实例上的属性保存不同的值</li>
-</ol>
-<p><strong>缺点</strong>：对象方法附加在实例上，每创建一个子类实例，就会将相关的方法也创建一遍，而函数的创建需要占用内存空间</p>
-<h3 id="-">原型链-构造函数组合式继承</h3>
-<pre><code class="lang-js">function Parent(name) {
-    this.name = name;
-    this.habits = [&#39;boxing&#39;];
-}
-Parent.prototype.sayHello = function sayHello() {
-    console.log(&#39;hello, world&#39;);
-}
-
-function Child(name) {
-    Parent.call(this, name);
-}
-
-Child.prototype = new Parent();
-
-const child_1 = new Child(&#39;trump&#39;);
-const child_2 = new Child(&#39;willianm&#39;);
-console.log(child_1.sayHello === child_2.sayHello); // true
-</code></pre>
-<p><strong>优点</strong>：结合了原型链和构造函数两种方式的优势，既解决了子类实例共享引用类型属性的问题，又实现了对象方法只需要创建一次即可<br><strong>缺点</strong>：</p>
-<ol>
-<li>每创建一个子类实例，需要调用两次父类构造函数；</li>
-<li>子类实例和子类实例的原型上存在同名属性，造成冗余.</li>
-</ol>
-<h3 id="-">原型式继承</h3>
-<pre><code class="lang-js">function createObj(parentObj) {
-    function F() {}
-    F.prototype = parentObj;
-    return new F();
-} 
-const parent = {
-    habits: [&#39;boxing&#39;]
-};
-const child = createObj(parent);
-</code></pre>
-<p>本质上和ES6的<code>Object.create</code>方法一样，只是改变了子类构造函数的原型对象，缺点和基于原型链的继承方式一样.</p>
-<h3 id="-">寄生式继承</h3>
-<pre><code class="lang-js">function createObj(parentObj) {
-    const childObj = Object.create(parentObj);
-    childObj.sayHello = function sayHello() {
-        console.log(&#39;hello, world&#39;);
-    }
-}
-</code></pre>
-<p>和基于构造函数实现继承的方式相比，省略了父类构造函数的调用，但是两种方式缺点一样.</p>
-<h3 id="-">寄生-组合式继承</h3>
-<pre><code class="lang-js">function Parent() {
-    this.firstName = &#39;gates&#39;;
-}
-
-Parent.prototype.sayHello = function sayHello() {
-    console.log(&#39;hello, world&#39;);
-}
-
-function Child(lastName) {
-    Parent.call(this);
-    this.lastName = lastName;
-}
-
-const prototype = Object.create(Parent.prototype);
-Child.prototype = prototype;
-prototype.constructor = Child;
-
-// 寄生-组合式方法封装
-function inheritance(Child, Parent) {
-    const prototype = Object.create(Parent);
-    Child.prototype = prototype;
-    prototype.constructor = Child;
-}
-</code></pre>
-<p>从名字就可以看出，这种方式集成了寄生和组合方式的优点，绕过了组合方式需要两次调用父类构造函数以及属性冗余的问题.</p>
-]]></description><link>https://zhouzh1.github.io/article/js-inheritance.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/js-inheritance.html.html</guid><pubDate>Tue, 08 Oct 2019 10:23:00 GMT</pubDate></item></channel></rss>
+]]></description><link>https://zhouzh1.github.io/article/async-and-defer-attribute-of-script-tag.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/async-and-defer-attribute-of-script-tag.html.html</guid><pubDate>Wed, 23 Oct 2019 10:07:00 GMT</pubDate></item></channel></rss>
