@@ -51,7 +51,7 @@
 				<aside class="category">
 			<h1>文章分类</h1>
 			<ul class="category-list">
-							<li><a href="/category/算法">算法 (3)</a></li>
+							<li><a href="/category/算法">算法 (4)</a></li>
 							<li><a href="/category/Frontend">Frontend (9)</a></li>
 						</ul>
 		</aside>
@@ -63,13 +63,13 @@
 											<li><a href="/archive/index.html#2019">2019年10月 (4)</a></li>
 											<li><a href="/archive/index.html#2019">2019年12月 (4)</a></li>
 													
-											<li><a href="/archive/index.html#2020">2020年03月 (4)</a></li>
+											<li><a href="/archive/index.html#2020">2020年03月 (5)</a></li>
 												</ul>
 		</aside>
 		
 				<aside class="tag">
 			<h1>标签</h1>
-			<div class="tag-cloud"><a href="/tag/Algorithm" class="tag-link" style="font-size: 1.5em">Algorithm</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Redux" class="tag-link" style="font-size: 0.5em">Redux</a><a href="/tag/HTTP" class="tag-link" style="font-size: 0.5em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 0.5em">性能优化</a><a href="/tag/React" class="tag-link" style="font-size: 0.5em">React</a></div>  
+			<div class="tag-cloud"><a href="/tag/Algorithm" class="tag-link" style="font-size: 2em">Algorithm</a><a href="/tag/JavaScript" class="tag-link" style="font-size: 2em">JavaScript</a><a href="/tag/Redux" class="tag-link" style="font-size: 0.5em">Redux</a><a href="/tag/HTTP" class="tag-link" style="font-size: 0.5em">HTTP</a><a href="/tag/性能优化" class="tag-link" style="font-size: 0.5em">性能优化</a><a href="/tag/React" class="tag-link" style="font-size: 0.5em">React</a></div>  
 		</aside>
 			</section>
 </div>
@@ -78,6 +78,50 @@
 		<div class="primary">
 					<div class="main-content">
 							<ul class="article-list">
+									
+					<li class="article-item">
+						<header class="article-header">
+							<h1 class="article-title">
+								<a href="/article/select-sort.html">选择排序</a>
+							</h1>
+							<div class="article-meta">
+								<span class="meta publish-date">
+									<i class="fa fa-calendar"></i>2020-3-22
+								</span>
+								<span class="meta author">BY zhouzh1</span>
+							</div>
+						</header>
+						<section class="article-text article-abstract">
+							<pre><code class="lang-js">/**
+ * 选择排序，时间复杂度为O(N^2)
+ */
+function selectSort(arr) {
+    for (let i = 0; i &lt; arr.length - 1; i++) {
+        let idxOfMinVal = i, curVal = arr[i];
+        for (let j = i + 1; j &lt; arr.length; j++) {
+            if (arr[j] &lt; curVal) {
+                curVal = arr[j];
+                idxOfMinVal = j;
+            }
+        }
+        if (idxOfMinVal != i) {
+            [arr[i], arr[idxOfMinVal]] = [arr[idxOfMinVal], arr[i]];
+        }
+    }
+}
+
+// test
+const arr = new Array(10);
+for (let i = 0; i &lt; arr.length; i++) {
+    arr[i] = Math.round(Math.random() * 90 + 10)
+}
+console.log(arr);
+selectSort(arr);
+console.log(arr);
+</code></pre>
+						</section>
+						<a href="/article/select-sort.html" class="read-all" role="button">阅读全文</a>
+					</li>
 									
 					<li class="article-item">
 						<header class="article-header">
@@ -424,24 +468,6 @@ function shuffle(arr) {
 </code></pre>
 						</section>
 						<a href="/article/shuffle-algorithm.html" class="read-all" role="button">阅读全文</a>
-					</li>
-									
-					<li class="article-item">
-						<header class="article-header">
-							<h1 class="article-title">
-								<a href="/article/sync-and-async-of-react-setState.html">React中setState方法的同步与异步</a>
-							</h1>
-							<div class="article-meta">
-								<span class="meta publish-date">
-									<i class="fa fa-calendar"></i>2019-10-24
-								</span>
-								<span class="meta author">BY zhouzh1</span>
-							</div>
-						</header>
-						<section class="article-text article-abstract">
-							<h3 id="this-setstate-">this.setState方法内部做了什么？</h3><p>调用this.setState方法后，先进行状态合并，并会触发状态更新，重新调用组件的render方法，render方法执行结束后会产生新的虚拟dom，最后React内部会对组件的新旧虚拟dom进行diff操作，得到针对旧虚拟dom的patch，最后根据patch来更新dom结构，实现视图更新.</p><h3 id="this-setstate-">this.setState的同步和异步，为什么这样处理？</h3><p>React的setState方法本质上都是同步操作，所谓异步，指的是将一系列的setState操作先收集起来，最终在函数执行结束时进行状态合并后再进行批量执行.</p><p>之所以这样做，是因为如前文所述，每次调用setState方法都会触发视图更新，先将多次setState的调用收集起来，最终根据每次setState调用的状态参数进行状态合并后会得到最终的组件状态，这样一来，虽然调用了多次this.setState，但最终只会调用一次组件的render方法，视图也只会更新一次.</p>
-						</section>
-						<a href="/article/sync-and-async-of-react-setState.html" class="read-all" role="button">阅读全文</a>
 					</li>
 								</ul>
 						</div>
