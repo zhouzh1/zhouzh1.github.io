@@ -1,4 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sat, 21 Mar 2020 12:09:14 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sat, 21 Mar 2020 12:09:14 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[冒泡排序]]></title><description><![CDATA[<pre><code class="lang-js">/**
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Daily Notes]]></title><description><![CDATA[Just Some Notes]]></description><link>https://zhouzh1.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 22 Mar 2020 13:32:52 GMT</lastBuildDate><atom:link href="https://zhouzh1.github.io/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Sun, 22 Mar 2020 13:32:52 GMT</pubDate><webMaster><![CDATA[zhouzh1]]></webMaster><item><title><![CDATA[选择排序]]></title><description><![CDATA[<pre><code class="lang-js">/**
+ * 选择排序，时间复杂度为O(N^2)
+ */
+function selectSort(arr) {
+    for (let i = 0; i &lt; arr.length - 1; i++) {
+        let idxOfMinVal = i, curVal = arr[i];
+        for (let j = i + 1; j &lt; arr.length; j++) {
+            if (arr[j] &lt; curVal) {
+                curVal = arr[j];
+                idxOfMinVal = j;
+            }
+        }
+        if (idxOfMinVal != i) {
+            [arr[i], arr[idxOfMinVal]] = [arr[idxOfMinVal], arr[i]];
+        }
+    }
+}
+
+// test
+const arr = new Array(10);
+for (let i = 0; i &lt; arr.length; i++) {
+    arr[i] = Math.round(Math.random() * 90 + 10)
+}
+console.log(arr);
+selectSort(arr);
+console.log(arr);
+</code></pre>
+]]></description><link>https://zhouzh1.github.io/article/select-sort.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/select-sort.html.html</guid><pubDate>Sun, 22 Mar 2020 13:29:00 GMT</pubDate></item><item><title><![CDATA[冒泡排序]]></title><description><![CDATA[<pre><code class="lang-js">/**
  * 冒泡排序，时间复杂度为O(N^2)
  */
 function bubbleSort(arr) {
@@ -837,54 +864,4 @@ function shuffle(arr) {
     }
 }
 </code></pre>
-]]></description><link>https://zhouzh1.github.io/article/shuffle-algorithm.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/shuffle-algorithm.html.html</guid><pubDate>Wed, 30 Oct 2019 10:03:00 GMT</pubDate></item><item><title><![CDATA[React中setState方法的同步与异步]]></title><description><![CDATA[<h3 id="this-setstate-">this.setState方法内部做了什么？</h3>
-<p>调用this.setState方法后，先进行状态合并，并会触发状态更新，重新调用组件的render方法，render方法执行结束后会产生新的虚拟dom，最后React内部会对组件的新旧虚拟dom进行diff操作，得到针对旧虚拟dom的patch，最后根据patch来更新dom结构，实现视图更新.</p>
-<h3 id="this-setstate-">this.setState的同步和异步，为什么这样处理？</h3>
-<p>React的setState方法本质上都是同步操作，所谓异步，指的是将一系列的setState操作先收集起来，最终在函数执行结束时进行状态合并后再进行批量执行.</p>
-<p>之所以这样做，是因为如前文所述，每次调用setState方法都会触发视图更新，先将多次setState的调用收集起来，最终根据每次setState调用的状态参数进行状态合并后会得到最终的组件状态，这样一来，虽然调用了多次this.setState，但最终只会调用一次组件的render方法，视图也只会更新一次.</p>
-<h3 id="-">同步和异步分别发生在什么时机？</h3>
-<p>如前文所述，在函数的执行过程中，如果React想对this.setState进行“异步”操作，必须要能知晓这个函数什么时候会执行结束，在React中，组件生命周期函数的执行完全由React控制，事件处理程序由于合成事件的机制也被React所控制，因此在这两类函数里的this.setState都是“异步”处理，对于setTimeout和setInterval以及Promise回调这一类不在React管控范围内的函数里面，所有的this.setState就只能是同步处理了.</p>
-<pre><code class="lang-js">import React from &#39;react&#39;;
-
-class Foo extends React.Component {
-
-    state = {
-        a: &#39;a&#39;,
-    }
-
-    bar() {
-        this.setState({
-            a: &#39;A&#39;
-        });
-        console.log(this.state.a); // &#39;a&#39;
-    }
-
-    componentDidMount() {
-        setTimeout(() =&gt; {
-            this.setState({
-                a: &#39;A&#39;
-            });
-            console.log(this.state.a); // &#39;A&#39;
-        }, 0);
-
-        Promise.resolve().then(() =&gt; {
-            this.setState({
-                a: &#39;A&#39;
-            });
-            console.log(this.state.a); // &#39;A&#39;
-        });
-
-        this.setState({
-            a: &#39;A&#39;
-        });
-        console.log(this.state.a); // &#39;a&#39;
-    }
-
-    render() {
-        return (
-            &lt;div onClick={this.bar}&gt;bar&lt;/div&gt;
-        )
-    }
-}
-</code></pre>
-]]></description><link>https://zhouzh1.github.io/article/sync-and-async-of-react-setState.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/sync-and-async-of-react-setState.html.html</guid><pubDate>Thu, 24 Oct 2019 09:41:00 GMT</pubDate></item></channel></rss>
+]]></description><link>https://zhouzh1.github.io/article/shuffle-algorithm.html.html</link><guid isPermaLink="true">https://zhouzh1.github.io/article/shuffle-algorithm.html.html</guid><pubDate>Wed, 30 Oct 2019 10:03:00 GMT</pubDate></item></channel></rss>

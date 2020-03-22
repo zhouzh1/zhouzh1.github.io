@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/theme_assets/css/font-awesome-4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="/theme_assets/css/site.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-	<title>冒泡排序</title>
+	<title>选择排序</title>
 </head>
 <body>
 	<div class="body-wrapper">
@@ -78,34 +78,40 @@
 			<div class="main-content">
 				<article class="article">
 					<header class="article-header">
-						<h1 class="article-title">冒泡排序</h1>
+						<h1 class="article-title">选择排序</h1>
 						<div class="article-meta">
 							<span class="meta publish-date">
-								<i class="fa fa-calendar"></i>2020-3-21
+								<i class="fa fa-calendar"></i>2020-3-22
 							</span>
 							<span class="meta author">BY zhouzh1</span>
 						</div>
 					</header>
 					<section class="article-text article-main">
 						<pre><code class="lang-js">/**
- * 冒泡排序，时间复杂度为O(N^2)
+ * 选择排序，时间复杂度为O(N^2)
  */
-function bubbleSort(arr) {
-    for (i = arr.length - 1; i &gt; 0; i--) {
-        for (j = 0; j &lt; i; j++) {
-            if (arr[j] &gt; arr[j + 1]) {
-                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+function selectSort(arr) {
+    for (let i = 0; i &lt; arr.length - 1; i++) {
+        let idxOfMinVal = i, curVal = arr[i];
+        for (let j = i + 1; j &lt; arr.length; j++) {
+            if (arr[j] &lt; curVal) {
+                curVal = arr[j];
+                idxOfMinVal = j;
             }
+        }
+        if (idxOfMinVal != i) {
+            [arr[i], arr[idxOfMinVal]] = [arr[idxOfMinVal], arr[i]];
         }
     }
 }
+
 // test
 const arr = new Array(10);
 for (let i = 0; i &lt; arr.length; i++) {
-    arr[i] = Math.round(Math.random() * 80 + 20)
+    arr[i] = Math.round(Math.random() * 90 + 10)
 }
 console.log(arr);
-bubbleSort(arr);
+selectSort(arr);
 console.log(arr);
 </code></pre>
 
@@ -114,9 +120,8 @@ console.log(arr);
 													<a href="/tag/Algorithm">#Algorithm</a>
 											</section>
 					<section class="article-nav">
-											<a href="/article/select-sort.html" title="上一篇:选择排序" class="prev-article"></a>
 					
-											<a href="/article/calculate-the-nth-value-of-fibonacci-sequence.html" title="下一篇:计算斐波拉契数列" class="next-article"></a>
+											<a href="/article/bubble-sort.html" title="下一篇:冒泡排序" class="next-article"></a>
 											
 					</section>
 				</article>
